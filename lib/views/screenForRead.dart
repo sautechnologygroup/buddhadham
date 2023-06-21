@@ -176,9 +176,10 @@ class _ReadScreenState extends State<ReadScreen> {
                           controller: _controllerTextField,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: 'Enter Page Number',
-                            hintText:
-                                AppTextSetting.INDEX_PAGE.toInt().toString(),
+                            labelText:
+                                'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
+                            // hintText:
+                            //     AppTextSetting.INDEX_PAGE.toInt().toString(),
                           ),
                           onSubmitted: (String value) {
                             setState(() {
