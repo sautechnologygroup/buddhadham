@@ -27,6 +27,7 @@ class _ReadScreenState extends State<ReadScreen> {
     getDataTextListFuture = getData()!;
     super.initState();
   }
+
   @override
   void dispose() {
     _controllerTextField.dispose();
@@ -137,7 +138,8 @@ class _ReadScreenState extends State<ReadScreen> {
                     ),
                     Wrap(
                       children: [
-                        Text(AppTextSetting.APP_FONTSIZE_READ.toInt().toString())
+                        Text(
+                            AppTextSetting.APP_FONTSIZE_READ.toInt().toString())
                       ],
                     ),
                     ElevatedButton(
@@ -165,39 +167,85 @@ class _ReadScreenState extends State<ReadScreen> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    _pageController
+                        .jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
                 min: 1,
                 max: numAllPage,
               ),
+              Wrap(
+                children: [Text(AppTextSetting.INDEX_PAGE.toInt().toString())],
+              ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40,bottom: 10),
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     ElevatedButton(
                       child: const Icon(Icons.keyboard_arrow_left),
                       onPressed: () {
-                        _pageController.previousPage(duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                        _pageController.previousPage(
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut);
                         // setState(() {
                         //   AppTextSetting.INDEX_PAGE -= 1;
                         // });
                       },
                     ),
+                    // Expanded(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.only(left: 20, right: 20),
+                    //     child: TextField(
+                    //       keyboardType:
+                    //           TextInputType.numberWithOptions(decimal: true),
+                    //       controller: _controllerTextField,
+                    //       // onSubmitted: (String value){
+                    //       //   setState(() {
+                    //       //     AppTextSetting.INDEX_PAGE = double.parse(value);
+                    //       //     _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    //       //   });
+                    //       // },
+                    //     ),
+                    //   ),
+                    // ),
+
+                    // Expanded(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.only(left: 20, right: 20),
+                    //     child: TextField(
+                    //       keyboardType:
+                    //           TextInputType.numberWithOptions(decimal: true),
+                    //       controller: _controllerTextField,
+                    //       onSubmitted: (String value) {
+                    //         setState(() {
+                    //           AppTextSetting.INDEX_PAGE = double.parse(value);
+                    //           _pageController.jumpToPage(
+                    //               AppTextSetting.INDEX_PAGE.toInt());
+                    //         });
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
+
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextField(
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           controller: _controllerTextField,
-                          // onSubmitted: (String value){
-                          //   setState(() {
-                          //     AppTextSetting.INDEX_PAGE = double.parse(value);
-                          //     _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
-                          //   });
-                          // },
+                          onSubmitted: (String value) {
+                            setState(() {
+                              int pageNumber = int.parse(value);
+                              if (pageNumber >= 1) {
+                                AppTextSetting.INDEX_PAGE = pageNumber - 1;
+                                _pageController.jumpToPage(
+                                    AppTextSetting.INDEX_PAGE.toInt());
+                              }
+                            });
+                          },
                         ),
                       ),
                     ),
@@ -209,7 +257,9 @@ class _ReadScreenState extends State<ReadScreen> {
                     ElevatedButton(
                       child: const Icon(Icons.keyboard_arrow_right),
                       onPressed: () {
-                        _pageController.nextPage(duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+                        _pageController.nextPage(
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeInOut);
                         // setState(() {
                         //   AppTextSetting.INDEX_PAGE += 1;
                         // });
