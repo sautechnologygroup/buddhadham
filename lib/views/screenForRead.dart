@@ -155,6 +155,17 @@ class _ReadScreenState extends State<ReadScreen> {
                   ],
                 ),
               ),
+              // add horizontal divider
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: const Divider(
+                  color: Colors.black,
+                  height: 20,
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+              ),
               Center(
                 child: Text(
                   'หน้า',
@@ -177,9 +188,9 @@ class _ReadScreenState extends State<ReadScreen> {
                 min: 1,
                 max: numAllPage,
               ),
-              Wrap(
-                children: [Text(AppTextSetting.INDEX_PAGE.toInt().toString())],
-              ),
+              // Wrap(
+              //   children: [Text(AppTextSetting.INDEX_PAGE.toInt().toString())],
+              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
                 child: Row(
@@ -230,7 +241,6 @@ class _ReadScreenState extends State<ReadScreen> {
                     //     ),
                     //   ),
                     // ),
-
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
@@ -238,6 +248,11 @@ class _ReadScreenState extends State<ReadScreen> {
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           controller: _controllerTextField,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText:
+                                AppTextSetting.INDEX_PAGE.toInt().toString(),
+                          ),
                           onSubmitted: (String value) {
                             setState(() {
                               int pageNumber = int.parse(value);
