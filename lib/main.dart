@@ -34,15 +34,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => MainWidget()));
+          context, MaterialPageRoute(builder: (context) => MainWidget()));
     });
     super.initState();
   }
@@ -53,7 +50,8 @@ class _MainScreenState extends State<MainScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Image.asset('assets/images/cover.jpg',
+        child: Image.asset(
+          'assets/images/cover.jpg',
           fit: BoxFit.cover,
         ),
       ),
@@ -80,13 +78,13 @@ class _MainWidgetState extends State<MainWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(25.0),
-        child: AppBar(
-          title: const Center(child: Text('พุทธรรม(ภาษาไทย)')),
-          automaticallyImplyLeading: false,
-        ),
-      ),
+      // appBar: PreferredSize(
+      //   preferredSize: const Size.fromHeight(25.0),
+      //   child: AppBar(
+      //     title: const Center(child: Text('พุทธรรม(ภาษาไทย)')),
+      //     automaticallyImplyLeading: false,
+      //   ),
+      // ),
       body: ReadScreen(),
       // _selectedIndex == 0
       //     ? const ReadScreen()

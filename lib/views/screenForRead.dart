@@ -3,6 +3,8 @@ import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/widgets/expandFont.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReadScreen extends StatefulWidget {
   const ReadScreen({Key? key}) : super(key: key);
@@ -311,28 +313,67 @@ class _ReadScreenState extends State<ReadScreen> {
       // drawer: const BurgerWidget(),
       drawer: expandTextFont(),
       appBar: AppBar(
+        toolbarHeight: 75,
         leading: GestureDetector(
           onTap: () => _scaffoldKey.currentState!.openDrawer(),
-          child: const Icon(
-            Icons.zoom_in,
-            size: 35,
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.035),
+            child: const Icon(
+              FontAwesomeIcons.bookOpen,
+              size: 35,
+            ),
           ),
         ),
-        title: const Center(
-          child: Text('อ่าน'),
+        title: Center(
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'พุทธธรรม',
+                  style: GoogleFonts.charmonman(
+                    textStyle: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  'ฉบับปรับปรุงใหม่',
+                  style: GoogleFonts.charmonman(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return searchPage();
-                  });
-            },
-            icon: const Icon(
-              Icons.search,
-              size: 35,
+          Padding(
+            padding: EdgeInsets.only(
+                right: MediaQuery.of(context).size.width * 0.035),
+            child: IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return searchPage();
+                    });
+              },
+              icon: const Icon(
+                Icons.search,
+                size: 35,
+              ),
             ),
           )
           // IconButton(
