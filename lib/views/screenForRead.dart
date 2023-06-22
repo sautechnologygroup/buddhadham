@@ -48,6 +48,7 @@ class _ReadScreenState extends State<ReadScreen> {
     return input;
   }
 
+  // This function retrieves the list of all text sections
   Future<List<String>>? getData() async {
     try {
       List<String>? listData = await Section.listAllText;
@@ -60,6 +61,8 @@ class _ReadScreenState extends State<ReadScreen> {
       return [];
     }
   }
+
+  int currentPageIndex = 0; // Add a variable to track the current page index
 
   Widget expandTextFont() {
     return Padding(
@@ -89,7 +92,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 },
                 divisions: 90,
                 min: 10.0,
-                max: 100.0,
+                max: MediaQuery.of(context).textScaleFactor * 100.0,
                 label: AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
               ),
               Padding(
@@ -146,8 +149,10 @@ class _ReadScreenState extends State<ReadScreen> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController
-                        .jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE
+                        .toInt()
+                        .clamp(0, numAllPage.toInt() - 1)
+                        .toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
@@ -164,7 +169,7 @@ class _ReadScreenState extends State<ReadScreen> {
                       icon: Icon(Icons.keyboard_arrow_left),
                       onPressed: () {
                         _pageController.previousPage(
-                          duration: const Duration(seconds: 1),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                         );
                       },
@@ -203,7 +208,7 @@ class _ReadScreenState extends State<ReadScreen> {
                       icon: Icon(Icons.keyboard_arrow_right),
                       onPressed: () {
                         _pageController.nextPage(
-                          duration: const Duration(seconds: 1),
+                          duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                         );
                       },
@@ -221,6 +226,7 @@ class _ReadScreenState extends State<ReadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().backgroundColor,
       key: _scaffoldKey,
       drawer: FutureBuilder<List<String>>(
         future: getDataTextListFuture,
@@ -266,11 +272,20 @@ class _ReadScreenState extends State<ReadScreen> {
                                   'หน้า ${index + 1}',
                                   style: GoogleFonts.charmonman(
                                     fontSize: 20,
+                                    color: index == currentPageIndex
+                                        ? Colors
+                                            .orange // Apply a highlight color to the selected page
+                                        : Colors
+                                            .black, // Default color for other pages
                                   ),
                                 ),
                                 subtitle: Text(cleanInfo),
                                 onTap: () {
                                   Navigator.pop(context);
+                                  setState(() {
+                                    currentPageIndex =
+                                        index; // Update the current page index
+                                  });
                                   _pageController.jumpToPage(index);
                                 },
                               ),
@@ -290,63 +305,6 @@ class _ReadScreenState extends State<ReadScreen> {
                 ],
               ),
             );
-
-            // return Drawer(
-            //   child: ListView(
-            //     padding: const EdgeInsets.all(0.0),
-            //     children: <Widget>[
-            //       SizedBox(
-            //         height: 110,
-            //         child: DrawerHeader(
-            //           child: Text(
-            //             'สารบัญ',
-            //             style: GoogleFonts.charmonman(
-            //               fontSize: 30,
-            //             ),
-            //           ),
-            //           decoration: BoxDecoration(
-            //             color: AppColors().primarAppColor,
-            //           ),
-            //         ),
-            //       ),
-            //       ...snapshot.data!.asMap().entries.map((entry) {
-            //         int index = entry.key;
-            //         String pageContent = entry.value;
-            //         List<String> lines = pageContent.split('\n');
-            //         String info = lines
-            //             .take(1)
-            //             .map((line) => line.length < 100
-            //                 ? line
-            //                 : line.replaceRange(100, line.length, '...'))
-            //             .join('\n');
-            //         return Column(
-            //           children: [
-            //             ListTile(
-            //               title: Text(
-            //                 'หน้า ${index + 1}',
-            //                 style: GoogleFonts.charmonman(
-            //                   fontSize: 20,
-            //                 ),
-            //               ),
-            //               subtitle: Text(info),
-            //               onTap: () {
-            //                 Navigator.pop(context);
-            //                 _pageController.jumpToPage(index);
-            //               },
-            //             ),
-            //             const Divider(
-            //               color: Colors.black,
-            //               height: 20,
-            //               thickness: 1,
-            //               indent: 20,
-            //               endIndent: 20,
-            //             ),
-            //           ],
-            //         );
-            //       }).toList(),
-            //     ],
-            //   ),
-            // );
           }
         },
       ),
@@ -488,36 +446,6 @@ class _ReadScreenState extends State<ReadScreen> {
             );
           }
         },
-      ),
-    );
-  }
-
-  Widget searchPage() {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 16,
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.8,
-        child: Column(
-          children: [
-            Center(
-              child: TextField(
-                controller: searchTextController,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      searchTextController.clear();
-                    },
-                  ),
-                  hintText: 'Search...',
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

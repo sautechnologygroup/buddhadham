@@ -16,3 +16,39 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
+
+
+
+
+
+
+// Widget searchPage() {
+//     return Dialog(
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+//       elevation: 16,
+//       child: Container(
+//         height: MediaQuery.of(context).size.height * 0.8,
+//         child: Column(
+//           children: [
+//             Center(
+//               child: TextField(
+//                 controller: searchTextController,
+//                 decoration: InputDecoration(
+//                   prefixIcon: const Icon(Icons.search),
+//                   suffixIcon: IconButton(
+//                     icon: const Icon(Icons.clear),
+//                     onPressed: () {
+//                       searchTextController.clear();
+//                     },
+//                   ),
+//                   hintText: 'Search...',
+//                   border: InputBorder.none,
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
