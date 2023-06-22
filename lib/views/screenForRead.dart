@@ -221,9 +221,7 @@ class _ReadScreenState extends State<ReadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: TableOfContentsDrawer(
-        pageTextsFuture: getDataTextListFuture,
-        pageController: _pageController,
+      drawer: FutureBuilder<List<String>>(
         future: getDataTextListFuture,
         builder: (context, AsyncSnapshot<List<String>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
