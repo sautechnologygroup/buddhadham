@@ -3,6 +3,7 @@ import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/utils/appcolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -466,12 +467,15 @@ class _ReadScreenState extends State<ReadScreen> {
                                   right:
                                       MediaQuery.of(context).size.width * 0.025,
                                 ),
-                                child: Text(
+                                // child: Text(
+                                //   snapshot.data![index],
+                                //   style: TextStyle(
+                                //     fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                //     color: AppColors().readtextColor,
+                                //   ),
+                                // ),
+                                 child: HtmlWidget(
                                   snapshot.data![index],
-                                  style: TextStyle(
-                                    fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                    color: AppColors().readtextColor,
-                                  ),
                                 ),
                               ),
                             ],
