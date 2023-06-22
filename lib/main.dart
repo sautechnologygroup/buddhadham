@@ -1,3 +1,4 @@
+import 'package:buddhadham/utils/appcolors.dart';
 import 'package:buddhadham/views/dictionary.dart';
 import 'package:buddhadham/views/logList.dart';
 import 'package:buddhadham/views/screenForRead.dart';
@@ -5,11 +6,12 @@ import 'package:buddhadham/views/searchScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  MaterialColor primary_color = AppColors().primarAppColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Buddhadham',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: primary_color,
       ),
       home: const MainScreen(),
     );

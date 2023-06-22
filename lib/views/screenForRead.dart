@@ -1,5 +1,6 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
+import 'package:buddhadham/utils/appcolors.dart';
 import 'package:buddhadham/widgets/expandFont.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -118,7 +119,6 @@ class _ReadScreenState extends State<ReadScreen> {
                   ],
                 ),
               ),
-              // Add horizontal divider
               Padding(
                 padding: const EdgeInsets.only(top: 30, bottom: 10),
                 child: const Divider(
@@ -178,8 +178,6 @@ class _ReadScreenState extends State<ReadScreen> {
                             border: OutlineInputBorder(),
                             labelText:
                                 'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
-                            // hintText:
-                            //     AppTextSetting.INDEX_PAGE.toInt().toString(),
                           ),
                           onSubmitted: (String value) {
                             setState(() {
@@ -215,136 +213,120 @@ class _ReadScreenState extends State<ReadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: expandTextFont(),
-        appBar: AppBar(
-          toolbarHeight: 75,
-          leading: GestureDetector(
-            onTap: () => _scaffoldKey.currentState!.openDrawer(),
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.035,
+    return Scaffold(
+      key: _scaffoldKey,
+      //drawer with menu list and header รายการหน้า และ เกี่ยวกับ
+      drawer: Drawer(
+          // ปุ่มเมนู รายการหน้ากับเกี่ยวกับเรียงกันในแนวนอน ข้างบนที่สารมารถกดได้ รายการหน้าก็คือหน้า drawer ปัจจุบัน ส่วนเกี่ยวกับก็คือหน้าเกี่ยวกับ
+
+          ),
+      endDrawer: expandTextFont(),
+      appBar: AppBar(
+        toolbarHeight: 75,
+        title: Center(
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'พุทธธรรม',
+                  style: GoogleFonts.charmonman(
+                    textStyle: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              child: const Icon(
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  'ฉบับปรับปรุงใหม่',
+                  style: GoogleFonts.charmonman(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width * 0.035,
+            ),
+            child: GestureDetector(
+              onTap: () => _scaffoldKey.currentState!.openEndDrawer(),
+              child: Icon(
                 FontAwesomeIcons.bookOpen,
                 size: 35,
+                color: AppColors().iconColor,
               ),
             ),
           ),
-          title: Center(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    'พุทธธรรม',
-                    style: GoogleFonts.charmonman(
-                      textStyle: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'ฉบับปรับปรุงใหม่',
-                    style: GoogleFonts.charmonman(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width * 0.035,
-              ),
-              child: IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return searchPage();
-                    },
-                  );
-                },
-                icon: const Icon(
-                  Icons.search,
-                  size: 35,
-                ),
-              ),
-            ),
-          ],
-        ),
-        body: FutureBuilder<List<String>>(
-          future: getDataTextListFuture,
-          builder: (context, AsyncSnapshot<List<String>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              return PageView.builder(
-                itemCount: snapshot.data!.length,
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() {
-                    AppTextSetting.INDEX_PAGE = index.toDouble() + 1;
-                  });
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(1),
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 10,
-                            right: 10,
-                            bottom: 10,
-                            top: 5,
-                          ),
-                          child: Wrap(
-                            children: [
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: Text(
-                                  'หน้า ' +
-                                      thaiNumDigit((index + 1).toString()),
-                                  style: TextStyle(
-                                    fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                snapshot.data![index],
+        ],
+      ),
+      body: FutureBuilder<List<String>>(
+        future: getDataTextListFuture,
+        builder: (context, AsyncSnapshot<List<String>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return PageView.builder(
+              itemCount: snapshot.data!.length,
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  AppTextSetting.INDEX_PAGE = index.toDouble() + 1;
+                });
+              },
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                          bottom: 10,
+                          top: 5,
+                        ),
+                        child: Wrap(
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                'หน้า ' + thaiNumDigit((index + 1).toString()),
                                 style: TextStyle(
                                   fontSize: AppTextSetting.APP_FONTSIZE_READ,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              snapshot.data![index],
+                              style: TextStyle(
+                                fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  );
-                },
-              );
-            }
-          },
-        ),
+                  ),
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }

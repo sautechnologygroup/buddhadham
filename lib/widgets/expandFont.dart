@@ -16,8 +16,7 @@ class _ExpandFontState extends State<ExpandFont> {
       child: Align(
         alignment: Alignment.topCenter,
         child: GestureDetector(
-          onTap: (){
-          },
+          onTap: () {},
           child: Card(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -43,7 +42,7 @@ class _ExpandFontState extends State<ExpandFont> {
                   max: 100.0,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 40,right: 40),
+                  padding: const EdgeInsets.only(left: 40, right: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
