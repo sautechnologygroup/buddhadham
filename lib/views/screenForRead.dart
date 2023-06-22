@@ -255,9 +255,9 @@ class _ReadScreenState extends State<ReadScreen> {
                           List<String> lines = info.split('\n');
                           String cleanInfo = lines
                               .take(1)
-                              .map((line) => line.length < 100
+                              .map((line) => line.length < 99
                                   ? line
-                                  : line.replaceRange(100, line.length, '...'))
+                                  : line.replaceRange(99, line.length, '...'))
                               .join('\n');
                           return Column(
                             children: [
