@@ -233,11 +233,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 },
               ),
             ),
-            ListTile(
-              title: Text('All Pages'),
-            ),
-            // TODO: Display the list of available pages
-            // You can use ListView.builder to dynamically build the list of ListTile widgets
+            
           ],
         ),
       ),
