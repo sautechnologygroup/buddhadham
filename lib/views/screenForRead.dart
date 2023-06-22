@@ -173,6 +173,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: TextField(
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           controller: _controllerTextField,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -181,11 +184,13 @@ class _ReadScreenState extends State<ReadScreen> {
                           ),
                           onSubmitted: (String value) {
                             setState(() {
-                              int pageNumber = int.parse(value);
-                              if (pageNumber >= 1) {
+                              int? pageNumber = int.tryParse(value);
+                              if (pageNumber != null && pageNumber >= 1) {
                                 AppTextSetting.INDEX_PAGE = pageNumber - 1;
                                 _pageController.jumpToPage(
                                     AppTextSetting.INDEX_PAGE.toInt());
+                              } else {
+                                // Handle invalid input, such as displaying an error message.
                               }
                             });
                           },
@@ -215,11 +220,27 @@ class _ReadScreenState extends State<ReadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      //drawer with menu list and header รายการหน้า และ เกี่ยวกับ
       drawer: Drawer(
-          // ปุ่มเมนู รายการหน้ากับเกี่ยวกับเรียงกันในแนวนอน ข้างบนที่สารมารถกดได้ รายการหน้าก็คือหน้า drawer ปัจจุบัน ส่วนเกี่ยวกับก็คือหน้าเกี่ยวกับ
-
-          ),
+        child: ListView(
+          children: [
+            Expanded(
+              child: ListTile(
+                title: Text('Page List'),
+                selected: true,
+                tileColor: Colors.grey[300],
+                onTap: () {
+                  // TODO: Implement logic to display page list
+                },
+              ),
+            ),
+            ListTile(
+              title: Text('All Pages'),
+            ),
+            // TODO: Display the list of available pages
+            // You can use ListView.builder to dynamically build the list of ListTile widgets
+          ],
+        ),
+      ),
       endDrawer: expandTextFont(),
       appBar: AppBar(
         toolbarHeight: 75,
