@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:buddhadham/widgets/Drawer.dart';
 
 class ReadScreen extends StatefulWidget {
   const ReadScreen({Key? key}) : super(key: key);
@@ -220,22 +221,38 @@ class _ReadScreenState extends State<ReadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Expanded(
-              child: ListTile(
-                title: Text('Page List'),
-                selected: true,
-                tileColor: Colors.grey[300],
-                onTap: () {
-                  // TODO: Implement logic to display page list
+      drawer: TableOfContentsDrawer(
+        pageTextsFuture: getDataTextListFuture,
+        pageController: _pageController,
+        future: getDataTextListFuture,
+        builder: (context, AsyncSnapshot<List<String>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return Drawer(
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  String pageContent = snapshot.data![index];
+                  List<String> lines = pageContent.split('\n');
+                  String info = lines.length > 2
+                      ? lines[0] + '\n' + lines[1] + '\n' + lines[2] + '...'
+                      : lines.join('\n');
+                  return ListTile(
+                    title: Text('หน้า ${index + 1}'),
+                    subtitle: Text(info),
+                    onTap: () {
+                      Navigator.pop(context);
+                      _pageController.jumpToPage(index);
+                    },
+                  );
                 },
               ),
-            ),
-            
-          ],
-        ),
+            );
+          }
+        },
       ),
       endDrawer: expandTextFont(),
       appBar: AppBar(
