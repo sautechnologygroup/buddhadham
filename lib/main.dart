@@ -4,6 +4,7 @@ import 'package:buddhadham/views/logList.dart';
 import 'package:buddhadham/views/screenForRead.dart';
 import 'package:buddhadham/views/searchScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -86,20 +87,20 @@ class _MainWidgetState extends State<MainWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(FontAwesomeIcons.book),
+            label: 'อ่าน',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Search',
+            label: 'ค้นหา',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star),
-            label: 'Log list',
+            label: 'รายการโปรด',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: 'Dictionary',
+            label: 'พจนานุกรม',
           ),
         ],
         currentIndex: _selectedIndex,

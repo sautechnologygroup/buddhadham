@@ -1,12 +1,10 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/utils/appcolors.dart';
-import 'package:buddhadham/widgets/expandFont.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:buddhadham/widgets/Drawer.dart';
 
 class ReadScreen extends StatefulWidget {
   const ReadScreen({Key? key}) : super(key: key);
@@ -107,7 +105,8 @@ class _ReadScreenState extends State<ReadScreen> {
                     ),
                     Text(
                       AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
-                      style: TextStyle(fontSize: 18),
+                      style:
+                          TextStyle(fontSize: 18, color: AppColors().textColor),
                     ),
                     IconButton(
                       icon: Icon(Icons.add),
@@ -230,25 +229,121 @@ class _ReadScreenState extends State<ReadScreen> {
             return Text('Error: ${snapshot.error}');
           } else {
             return Drawer(
-              child: ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  String pageContent = snapshot.data![index];
-                  List<String> lines = pageContent.split('\n');
-                  String info = lines.length > 2
-                      ? lines[0] + '\n' + lines[1] + '\n' + lines[2] + '...'
-                      : lines.join('\n');
-                  return ListTile(
-                    title: Text('หน้า ${index + 1}'),
-                    subtitle: Text(info),
-                    onTap: () {
-                      Navigator.pop(context);
-                      _pageController.jumpToPage(index);
-                    },
-                  );
-                },
+              elevation: 20.0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                    height: 110,
+                    child: DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.orange),
+                      child: Text('สารบัญ',
+                          style: GoogleFonts.charmonman(
+                            fontSize: 30,
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        ...snapshot.data!.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          String pageContent = entry.value;
+                          List<String> lines = pageContent.split('\n');
+                          String info = lines
+                              .take(1)
+                              .map((line) => line.length < 100
+                                  ? line
+                                  : line.replaceRange(100, line.length, '...'))
+                              .join('\n');
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Text(
+                                  'หน้า ${index + 1}',
+                                  style: GoogleFonts.charmonman(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                subtitle: Text(info),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  _pageController.jumpToPage(index);
+                                },
+                              ),
+                              const Divider(
+                                color: Colors.black,
+                                height: 20,
+                                thickness: 1,
+                                indent: 20,
+                                endIndent: 20,
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      ],
+                    ),
+                  )
+                ],
               ),
             );
+
+            // return Drawer(
+            //   child: ListView(
+            //     padding: const EdgeInsets.all(0.0),
+            //     children: <Widget>[
+            //       SizedBox(
+            //         height: 110,
+            //         child: DrawerHeader(
+            //           child: Text(
+            //             'สารบัญ',
+            //             style: GoogleFonts.charmonman(
+            //               fontSize: 30,
+            //             ),
+            //           ),
+            //           decoration: BoxDecoration(
+            //             color: AppColors().primarAppColor,
+            //           ),
+            //         ),
+            //       ),
+            //       ...snapshot.data!.asMap().entries.map((entry) {
+            //         int index = entry.key;
+            //         String pageContent = entry.value;
+            //         List<String> lines = pageContent.split('\n');
+            //         String info = lines
+            //             .take(1)
+            //             .map((line) => line.length < 100
+            //                 ? line
+            //                 : line.replaceRange(100, line.length, '...'))
+            //             .join('\n');
+            //         return Column(
+            //           children: [
+            //             ListTile(
+            //               title: Text(
+            //                 'หน้า ${index + 1}',
+            //                 style: GoogleFonts.charmonman(
+            //                   fontSize: 20,
+            //                 ),
+            //               ),
+            //               subtitle: Text(info),
+            //               onTap: () {
+            //                 Navigator.pop(context);
+            //                 _pageController.jumpToPage(index);
+            //               },
+            //             ),
+            //             const Divider(
+            //               color: Colors.black,
+            //               height: 20,
+            //               thickness: 1,
+            //               indent: 20,
+            //               endIndent: 20,
+            //             ),
+            //           ],
+            //         );
+            //       }).toList(),
+            //     ],
+            //   ),
+            // );
           }
         },
       ),
@@ -266,7 +361,7 @@ class _ReadScreenState extends State<ReadScreen> {
                     textStyle: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: AppColors().textColor,
                     ),
                   ),
                   textAlign: TextAlign.center,
@@ -279,7 +374,7 @@ class _ReadScreenState extends State<ReadScreen> {
                   style: GoogleFonts.charmonman(
                     textStyle: TextStyle(
                       fontSize: 20,
-                      color: Colors.white,
+                      color: AppColors().textColor,
                     ),
                   ),
                 ),
@@ -295,8 +390,8 @@ class _ReadScreenState extends State<ReadScreen> {
             child: GestureDetector(
               onTap: () => _scaffoldKey.currentState!.openEndDrawer(),
               child: Icon(
-                FontAwesomeIcons.bookOpen,
-                size: 35,
+                FontAwesomeIcons.cog,
+                // size: 35,
                 color: AppColors().iconColor,
               ),
             ),
@@ -332,24 +427,55 @@ class _ReadScreenState extends State<ReadScreen> {
                           bottom: 10,
                           top: 5,
                         ),
-                        child: Wrap(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                'หน้า ' + thaiNumDigit((index + 1).toString()),
-                                style: TextStyle(
-                                  fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Wrap(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'หน้า ' +
+                                      thaiNumDigit((index + 1).toString()),
+                                  // style: TextStyle(
+                                  //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                  //   color: AppColors().readtextColor,
+                                  // ),
+                                  style: GoogleFonts.charmonman(
+                                    fontSize:
+                                        AppTextSetting.APP_FONTSIZE_READ + 5,
+                                    color: AppColors().readtextColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Text(
-                              snapshot.data![index],
-                              style: TextStyle(
-                                fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                              Divider(
+                                color: Colors.black,
+                                height: 20,
+                                thickness: 1,
+                                indent:
+                                    MediaQuery.of(context).size.width * 0.025,
+                                endIndent:
+                                    MediaQuery.of(context).size.width * 0.025,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                ),
+                                child: Text(
+                                  snapshot.data![index],
+                                  style: TextStyle(
+                                    fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                    color: AppColors().readtextColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
