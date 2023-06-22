@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:html/parser.dart';
 
 class ReadScreen extends StatefulWidget {
   const ReadScreen({Key? key}) : super(key: key);
@@ -250,8 +251,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         ...snapshot.data!.asMap().entries.map((entry) {
                           int index = entry.key;
                           String pageContent = entry.value;
-                          List<String> lines = pageContent.split('\n');
-                          String info = lines
+                          String info = parse(pageContent).body?.text ?? '';
+                          List<String> lines = info.split('\n');
+                          String cleanInfo = lines
                               .take(1)
                               .map((line) => line.length < 100
                                   ? line
@@ -266,7 +268,7 @@ class _ReadScreenState extends State<ReadScreen> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                subtitle: Text(info),
+                                subtitle: Text(cleanInfo),
                                 onTap: () {
                                   Navigator.pop(context);
                                   _pageController.jumpToPage(index);
@@ -467,15 +469,12 @@ class _ReadScreenState extends State<ReadScreen> {
                                   right:
                                       MediaQuery.of(context).size.width * 0.025,
                                 ),
-                                // child: Text(
-                                //   snapshot.data![index],
-                                //   style: TextStyle(
-                                //     fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                //     color: AppColors().readtextColor,
-                                //   ),
-                                // ),
-                                 child: HtmlWidget(
+                                child: HtmlWidget(
                                   snapshot.data![index],
+                                  textStyle: TextStyle(
+                                    fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                    color: AppColors().readtextColor,
+                                  ),
                                 ),
                               ),
                             ],
