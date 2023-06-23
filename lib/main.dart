@@ -77,8 +77,10 @@ class _MainWidgetState extends State<MainWidget> {
       // ),
       body: IndexedStack(
         index: _selectedIndex,
-        children: const [
-          ReadScreen(),
+        children: [
+          ReadScreen(
+            initialPage: 1,
+          ),
           SearchScreen(),
           LogListScreen(),
           DictionaryScreen(),

@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:html/parser.dart';
 
 class ReadScreen extends StatefulWidget {
-  const ReadScreen({Key? key}) : super(key: key);
+  const ReadScreen({Key? key, required int initialPage}) : super(key: key);
 
   @override
   State<ReadScreen> createState() => _ReadScreenState();
@@ -77,10 +77,10 @@ class _ReadScreenState extends State<ReadScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: GoogleFonts.sarabun(
+                      fontSize: 20,
+                      color: AppColors().textColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Slider(
@@ -110,8 +110,11 @@ class _ReadScreenState extends State<ReadScreen> {
                     ),
                     Text(
                       AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
-                      style:
-                          TextStyle(fontSize: 18, color: AppColors().textColor),
+                      style: GoogleFonts.sarabun(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w200,
+                        color: AppColors().textColor,
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.add),
@@ -136,12 +139,22 @@ class _ReadScreenState extends State<ReadScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  'หน้า',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Column(
+                  children: [
+                    Text(
+                      'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
+                      style: GoogleFonts.sarabun(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '(${thaiNumDigit(AppTextSetting.INDEX_PAGE.toStringAsFixed(0))})',
+                      style: GoogleFonts.charmonman(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Slider(
@@ -178,6 +191,7 @@ class _ReadScreenState extends State<ReadScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextField(
+                          textAlign: TextAlign.center,
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
@@ -186,8 +200,7 @@ class _ReadScreenState extends State<ReadScreen> {
                           controller: _controllerTextField,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText:
-                                'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
+                            hintText: 'ไปหน้าที่?',
                           ),
                           onSubmitted: (String value) {
                             setState(() {
@@ -429,9 +442,10 @@ class _ReadScreenState extends State<ReadScreen> {
                                 ),
                                 child: HtmlWidget(
                                   snapshot.data![index],
-                                  textStyle: TextStyle(
+                                  textStyle: GoogleFonts.sarabun(
                                     fontSize: AppTextSetting.APP_FONTSIZE_READ,
                                     color: AppColors().readtextColor,
+                                    height: 1.7,
                                   ),
                                 ),
                               ),
