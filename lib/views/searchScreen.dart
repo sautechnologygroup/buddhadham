@@ -1,106 +1,66 @@
-import 'package:buddhadham/models/section.dart';
 import 'package:flutter/material.dart';
+import 'package:buddhadham/models/section.dart';
+import 'package:buddhadham/views/screenForRead.dart';
+import 'package:html/parser.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
-
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController searchTextController = TextEditingController();
-  List<String> searchResults = [];
+  final TextEditingController _searchController = TextEditingController();
+  List<String> _searchResults = [];
 
-  void search() {
-    String query = searchTextController.text.toLowerCase();
+  Future<void> _search(String query) async {
+    List<String> allTexts = await Section.listAllText;
+    List<String> searchResults = [];
 
-    // Clear the previous search results
-    setState(() {
-      searchResults.clear();
-    });
-
-    // Implement your search logic here
-    // Use the query to search within Section.listAllText
-    // Populate the searchResults list with the search results
-    for (String item in Section.listAllText) {
-      if (item.toLowerCase().contains(query)) {
-        setState(() {
-          searchResults.add(item);
-        });
+    for (int i = 0; i < allTexts.length; i++) {
+      if (allTexts[i].contains(query)) {
+        searchResults.add('Page ${i + 1}: ${allTexts[i].substring(0, 50)}...');
       }
     }
-  }
 
-  String truncateContent(String content) {
-    if (content.length <= 100) {
-      return content;
-    } else {
-      return content.substring(0, 100) + '...';
-    }
-  }
-
-  void navigateToPage(int pageIndex) {
-    // Implement the navigation logic here
-    // You can use the pageIndex to navigate to the corresponding page
+    setState(() {
+      _searchResults = searchResults;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('ค้นหา')),
+        title: Text('Search'),
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
-              controller: searchTextController,
+              controller: _searchController,
               decoration: InputDecoration(
-                labelText: 'ค้นหา',
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: search,
-                ),
+                labelText: 'Search',
               ),
+              onSubmitted: _search,
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: searchResults.length,
+              itemCount: _searchResults.length,
               itemBuilder: (context, index) {
-                String item = searchResults[index];
-                String truncatedContent = truncateContent(item);
-                return Column(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        'หน้า ${index + 1}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.orange,
+                return ListTile(
+                  title: Text(_searchResults[index]),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadScreen(
+                          initialPage: index + 1,
                         ),
                       ),
-                      subtitle: Text(
-                        truncatedContent,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
-                      ),
-                      onTap: () {
-                        navigateToPage(index);
-                      },
-                    ),
-                    const Divider(
-                      color: Colors.black,
-                      height: 20,
-                      thickness: 1,
-                      indent: 20,
-                      endIndent: 20,
-                    ),
-                  ],
+                    );
+                  },
                 );
               },
             ),
