@@ -9,7 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:html/parser.dart';
 
 class ReadScreen extends StatefulWidget {
-  const ReadScreen({Key? key, required int initialPage}) : super(key: key);
+  final int initialPage;
+  const ReadScreen({Key? key, required this.initialPage}) : super(key: key);
 
   @override
   State<ReadScreen> createState() => _ReadScreenState();
@@ -22,12 +23,13 @@ class _ReadScreenState extends State<ReadScreen> {
   final TextEditingController searchTextController = TextEditingController();
   late Future<List<String>> getDataTextListFuture;
   double numAllPage = 2;
-  final PageController _pageController = PageController(viewportFraction: 1);
+  PageController _pageController = PageController(viewportFraction: 1);
   final TextEditingController _controllerTextField = TextEditingController();
 
   @override
   void initState() {
     getDataTextListFuture = getData()!;
+    _pageController = PageController(initialPage: widget.initialPage - 1);
     super.initState();
   }
 
@@ -162,14 +164,12 @@ class _ReadScreenState extends State<ReadScreen> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE
-                        .toInt()
-                        .clamp(0, numAllPage.toInt() - 1)
-                        .toInt());
+                    _pageController
+                        .jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
-                min: 1,
+                min: 1.0,
                 max: numAllPage,
                 label: AppTextSetting.INDEX_PAGE.toInt().toString(),
               ),

@@ -3,6 +3,7 @@ import 'package:buddhadham/views/dictionary.dart';
 import 'package:buddhadham/views/logList.dart';
 import 'package:buddhadham/views/screenForRead.dart';
 import 'package:buddhadham/views/searchScreen.dart';
+import 'package:buddhadham/views/about.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -84,6 +85,7 @@ class _MainWidgetState extends State<MainWidget> {
           SearchScreen(),
           LogListScreen(),
           DictionaryScreen(),
+          AboutScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -103,6 +105,11 @@ class _MainWidgetState extends State<MainWidget> {
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'พจนานุกรม',
+          ),
+          BottomNavigationBarItem(
+            // Added new BottomNavigationBarItem for About page
+            icon: Icon(Icons.info),
+            label: 'เกี่ยวกับ',
           ),
         ],
         currentIndex: _selectedIndex,
