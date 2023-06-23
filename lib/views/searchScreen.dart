@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/views/screenForRead.dart';
-import 'package:html/parser.dart';
+import 'package:html/parser.dart' show parse;
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -18,7 +18,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
     for (int i = 0; i < allTexts.length; i++) {
       if (allTexts[i].contains(query)) {
-        searchResults.add('Page ${i + 1}: ${allTexts[i].substring(0, 50)}...');
+        String cleanText = parse(allTexts[i]).body?.text ?? '';
+        cleanText = cleanText.replaceAll('&nbsp;', ''); // Remove '&nbsp;'
+        cleanText =
+            cleanText.replaceAll(RegExp(r'\s+'), ' '); // Remove extra spaces
+        searchResults.add('Page ${i + 1}: ${cleanText.substring(0, 50)}...');
       }
     }
 
@@ -31,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
+        title: const Center(child: Text('ค้นหา')),
       ),
       body: Column(
         children: <Widget>[
@@ -51,15 +55,34 @@ class _SearchScreenState extends State<SearchScreen> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(_searchResults[index]),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ReadScreen(
-                          initialPage: index + 1,
+                  onTap: () async {
+                    int pageNumber = index + 1; // Get the correct page number
+
+                    List<String> allTexts = await Section.listAllText;
+                    String query = _searchController.text;
+                    int page = 0;
+                    int pageIndex = -1;
+
+                    for (int i = 0; i < allTexts.length; i++) {
+                      if (allTexts[i].contains(query)) {
+                        page++;
+                        if (page == pageNumber) {
+                          pageIndex = i;
+                          break;
+                        }
+                      }
+                    }
+
+                    if (pageIndex != -1) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReadScreen(
+                            initialPage: pageIndex + 1,
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
                 );
               },
