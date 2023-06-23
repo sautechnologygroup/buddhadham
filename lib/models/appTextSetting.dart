@@ -1,5 +1,3 @@
-
-
 class AppTextSetting {
   static double INDEX_PAGE = 1;
 

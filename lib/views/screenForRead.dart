@@ -1,11 +1,15 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
-import 'package:buddhadham/widgets/expandFont.dart';
+import 'package:buddhadham/utils/appcolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:html/parser.dart';
 
 class ReadScreen extends StatefulWidget {
-  const ReadScreen({Key? key}) : super(key: key);
+  const ReadScreen({Key? key, required int initialPage}) : super(key: key);
 
   @override
   State<ReadScreen> createState() => _ReadScreenState();
@@ -15,7 +19,7 @@ class _ReadScreenState extends State<ReadScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-  final searchText = TextEditingController();
+  final TextEditingController searchTextController = TextEditingController();
   late Future<List<String>> getDataTextListFuture;
   double numAllPage = 2;
   final PageController _pageController = PageController(viewportFraction: 1);
@@ -23,10 +27,10 @@ class _ReadScreenState extends State<ReadScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getDataTextListFuture = getData()!;
     super.initState();
   }
+
   @override
   void dispose() {
     _controllerTextField.dispose();
@@ -44,49 +48,21 @@ class _ReadScreenState extends State<ReadScreen> {
     return input;
   }
 
-  // List<Widget> getTextWidget(List<String> data) {
-  //   List<Widget> txtWidget = [];
-  //   int i;
-  //   for (i = 0; i < data.length; i++) {
-  //     txtWidget.add(
-  //       Container(
-  //         width: MediaQuery.of(context).size.width,
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(8.0),
-  //           child: SingleChildScrollView(
-  //             child: Padding(
-  //               padding: const EdgeInsets.only(
-  //                   left: 10, right: 10, bottom: 10, top: 5),
-  //               child: Wrap(
-  //                 children: [
-  //                   Align(
-  //                     alignment: Alignment.topRight,
-  //                     child: Text('หน้า ' + thaiNumDigit((i + 1).toString())),
-  //                   ),
-  //                   Text(
-  //                     data[i],
-  //                     style: TextStyle(
-  //                       fontSize: AppTextSetting.APP_FONTSIZE_READ,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   return txtWidget;
-  // }
-
+  // This function retrieves the list of all text sections
   Future<List<String>>? getData() async {
-    List<String>? listData = await Section.listAllText;
-    setState(() {
-      numAllPage = listData.length.toDouble();
-    });
-    return listData;
+    try {
+      List<String>? listData = await Section.listAllText;
+      setState(() {
+        numAllPage = listData.length.toDouble();
+      });
+      return listData;
+    } catch (e) {
+      // Handle the exception or display an error message
+      return [];
+    }
   }
+
+  int currentPageIndex = 0; // Add a variable to track the current page index
 
   Widget expandTextFont() {
     return Padding(
@@ -97,13 +73,14 @@ class _ReadScreenState extends State<ReadScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Center(
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: GoogleFonts.sarabun(
+                      fontSize: 20,
+                      color: AppColors().textColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Slider(
@@ -115,33 +92,32 @@ class _ReadScreenState extends State<ReadScreen> {
                 },
                 divisions: 90,
                 min: 10.0,
-                max: 100.0,
+                max: MediaQuery.of(context).textScaleFactor * 100.0,
+                label: AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    ElevatedButton(
-                      child: const Text(
-                        'ลด',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
+                    IconButton(
+                      icon: Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
                           AppTextSetting.APP_FONTSIZE_READ -= 1;
                         });
                       },
                     ),
-                    Wrap(
-                      children: [
-                        Text(AppTextSetting.APP_FONTSIZE_READ.toInt().toString())
-                      ],
+                    Text(
+                      AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
+                      style: GoogleFonts.sarabun(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w200,
+                        color: AppColors().textColor,
+                      ),
                     ),
-                    ElevatedButton(
-                      child: const Text('เพิ่ม'),
+                    IconButton(
+                      icon: Icon(Icons.add),
                       onPressed: () {
                         setState(() {
                           AppTextSetting.APP_FONTSIZE_READ += 1;
@@ -151,13 +127,34 @@ class _ReadScreenState extends State<ReadScreen> {
                   ],
                 ),
               ),
-              Center(
-                child: Text(
-                  'หน้า',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: const Divider(
+                  color: Colors.black,
+                  height: 20,
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Column(
+                  children: [
+                    Text(
+                      'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
+                      style: GoogleFonts.sarabun(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '(${thaiNumDigit(AppTextSetting.INDEX_PAGE.toStringAsFixed(0))})',
+                      style: GoogleFonts.charmonman(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Slider(
@@ -165,54 +162,68 @@ class _ReadScreenState extends State<ReadScreen> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE
+                        .toInt()
+                        .clamp(0, numAllPage.toInt() - 1)
+                        .toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
                 min: 1,
                 max: numAllPage,
+                label: AppTextSetting.INDEX_PAGE.toInt().toString(),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40,bottom: 10),
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    ElevatedButton(
-                      child: const Icon(Icons.keyboard_arrow_left),
+                    IconButton(
+                      icon: Icon(Icons.keyboard_arrow_left),
                       onPressed: () {
-                        _pageController.previousPage(duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-                        // setState(() {
-                        //   AppTextSetting.INDEX_PAGE -= 1;
-                        // });
+                        _pageController.previousPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
                       },
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 20,right: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextField(
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          textAlign: TextAlign.center,
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                          ],
                           controller: _controllerTextField,
-                          // onSubmitted: (String value){
-                          //   setState(() {
-                          //     AppTextSetting.INDEX_PAGE = double.parse(value);
-                          //     _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
-                          //   });
-                          // },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'ไปหน้าที่?',
+                          ),
+                          onSubmitted: (String value) {
+                            setState(() {
+                              int? pageNumber = int.tryParse(value);
+                              if (pageNumber != null && pageNumber >= 1) {
+                                AppTextSetting.INDEX_PAGE = pageNumber - 1;
+                                _pageController.jumpToPage(
+                                    AppTextSetting.INDEX_PAGE.toInt());
+                              } else {
+                                // Handle invalid input, such as displaying an error message.
+                              }
+                            });
+                          },
                         ),
                       ),
                     ),
-                    // Wrap(
-                    //   children: [
-                    //     Text(AppTextSetting.INDEX_PAGE.toInt().toString())
-                    //   ],
-                    // ),
-                    ElevatedButton(
-                      child: const Icon(Icons.keyboard_arrow_right),
+                    IconButton(
+                      icon: Icon(Icons.keyboard_arrow_right),
                       onPressed: () {
-                        _pageController.nextPage(duration: const Duration(seconds: 1), curve: Curves.easeInOut);
-                        // setState(() {
-                        //   AppTextSetting.INDEX_PAGE += 1;
-                        // });
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
                       },
                     ),
                   ],
@@ -225,85 +236,152 @@ class _ReadScreenState extends State<ReadScreen> {
     );
   }
 
-  Widget searchPage() {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 16,
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.8,
-        child: Column(
-          children: [
-            Center(
-              child: TextField(
-                controller: searchText,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        searchText.clear();
-                      },
-                    ),
-                    hintText: 'Search...',
-                    border: InputBorder.none),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().backgroundColor,
       key: _scaffoldKey,
-      // drawer: const BurgerWidget(),
-      drawer: expandTextFont(),
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () => _scaffoldKey.currentState!.openDrawer(),
-          child: const Icon(
-            Icons.zoom_in,
-            size: 35,
-          ),
-        ),
-        title: const Center(
-          child: Text('อ่าน'),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return searchPage();
-                  });
-            },
-            icon: const Icon(
-              Icons.search,
-              size: 35,
-            ),
-          )
-          // IconButton(
-          //   icon: const Icon(Icons.save),
-          //   onPressed: () {
-          //     ScaffoldMessenger.of(context)
-          //         .showSnackBar(const SnackBar(content: Text('Save...')));
-          //   },
-          // ),
-        ],
-      ),
-      body: FutureBuilder<List<String>>(
-        // future: getData(),
+      drawer: FutureBuilder<List<String>>(
         future: getDataTextListFuture,
         builder: (context, AsyncSnapshot<List<String>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return Drawer(
+              elevation: 20.0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                    height: 110,
+                    child: DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.orange),
+                      child: Text('สารบัญ',
+                          style: GoogleFonts.charmonman(
+                            fontSize: 30,
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        ...snapshot.data!.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          String pageContent = entry.value;
+                          String info = parse(pageContent).body?.text ?? '';
+                          List<String> lines = info.split('\n');
+                          String cleanInfo = lines
+                              .take(1)
+                              .map((line) => line.length < 99
+                                  ? line
+                                  : line.replaceRange(99, line.length, '...'))
+                              .join('\n');
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Text(
+                                  'หน้า ${index + 1}',
+                                  style: GoogleFonts.charmonman(
+                                    fontSize: 20,
+                                    color: index == currentPageIndex
+                                        ? Colors
+                                            .orange // Apply a highlight color to the selected page
+                                        : Colors
+                                            .black, // Default color for other pages
+                                  ),
+                                ),
+                                subtitle: Text(cleanInfo),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    currentPageIndex =
+                                        index; // Update the current page index
+                                  });
+                                  _pageController.jumpToPage(index);
+                                },
+                              ),
+                              const Divider(
+                                color: Colors.black,
+                                height: 20,
+                                thickness: 1,
+                                indent: 20,
+                                endIndent: 20,
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+        },
+      ),
+      endDrawer: expandTextFont(),
+      appBar: AppBar(
+        toolbarHeight: 75,
+        title: Center(
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'พุทธธรรม',
+                  style: GoogleFonts.charmonman(
+                    textStyle: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors().textColor,
+                    ),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  'ฉบับปรับปรุงใหม่',
+                  style: GoogleFonts.charmonman(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      color: AppColors().textColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(
+              right: MediaQuery.of(context).size.width * 0.035,
+            ),
+            child: GestureDetector(
+              onTap: () => _scaffoldKey.currentState!.openEndDrawer(),
+              child: Icon(
+                FontAwesomeIcons.cog,
+                // size: 35,
+                color: AppColors().iconColor,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: FutureBuilder<List<String>>(
+        future: getDataTextListFuture,
+        builder: (context, AsyncSnapshot<List<String>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
           } else {
             return PageView.builder(
               itemCount: snapshot.data!.length,
-              // controller: PageController(viewportFraction: 1),
               controller: _pageController,
               onPageChanged: (index) {
                 setState(() {
@@ -314,29 +392,65 @@ class _ReadScreenState extends State<ReadScreen> {
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(1),
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 10, right: 10, bottom: 10, top: 5),
-                        child: Wrap(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                'หน้า ' + thaiNumDigit((index + 1).toString()),
-                                style: TextStyle(
-                                  fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                          left: 10,
+                          right: 10,
+                          bottom: 10,
+                          top: 5,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Wrap(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'หน้า ' +
+                                      thaiNumDigit((index + 1).toString()),
+                                  // style: TextStyle(
+                                  //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                  //   color: AppColors().readtextColor,
+                                  // ),
+                                  style: GoogleFonts.charmonman(
+                                    fontSize:
+                                        AppTextSetting.APP_FONTSIZE_READ + 5,
+                                    color: AppColors().readtextColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Text(
-                              snapshot.data![index],
-                              style: TextStyle(
-                                fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                              Divider(
+                                color: Colors.black,
+                                height: 20,
+                                thickness: 1,
+                                indent:
+                                    MediaQuery.of(context).size.width * 0.025,
+                                endIndent:
+                                    MediaQuery.of(context).size.width * 0.025,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                ),
+                                child: HtmlWidget(
+                                  snapshot.data![index],
+                                  textStyle: GoogleFonts.sarabun(
+                                    fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                    color: AppColors().readtextColor,
+                                    height: 1.7,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
