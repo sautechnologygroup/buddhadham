@@ -26,9 +26,10 @@ class _SearchScreenState extends State<SearchScreen> {
         cleanText =
             cleanText.replaceAll(RegExp(r'\s+'), ' '); // Remove extra spaces
         if (cleanText.length <= 50) {
-          searchResults.add('Page ${i + 1}: ${cleanText}...');
+          searchResults.add('หน้าที่ ${i + 1}: ${cleanText}...');
         } else {
-          searchResults.add('Page ${i + 1}: ${cleanText.substring(0, 50)}...');
+          searchResults
+              .add('หน้าที่ ${i + 1}: ${cleanText.substring(0, 50)}...');
         }
       }
     }

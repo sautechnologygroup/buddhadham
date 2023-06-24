@@ -6,7 +6,7 @@ class AppColors {
       MaterialColorGenerator.from(Color.fromARGB(255, 34, 35, 61));
   // Color primaryColor = Colors.amber[800]!;
 
-  Color primaryColor = Color.fromARGB(255, 34, 35, 61)!;
+  Color primaryColor = Color.fromARGB(255, 34, 35, 61);
 
   Color secondaryColor = Colors.amber[600]!;
   Color tertiaryColor = Colors.amber[400]!;

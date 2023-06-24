@@ -324,7 +324,7 @@ class _ReadScreenState extends State<ReadScreen> {
                   ),
                   Expanded(
                     child: Container(
-                      color: Color.fromARGB(37, 208, 185, 52),
+                      color: AppColors().backgroundColor,
                       child: ListView(
                         padding: EdgeInsets.zero,
                         children: [
@@ -368,11 +368,11 @@ class _ReadScreenState extends State<ReadScreen> {
                                   },
                                 ),
                                 Divider(
-                                  color: Colors.grey[400],
+                                  color: AppColors().primarAppColor,
                                   height: 20,
                                   thickness: 1,
-                                  indent: 5,
-                                  endIndent: 5,
+                                  indent: 15,
+                                  endIndent: 15,
                                 ),
                               ],
                             );
