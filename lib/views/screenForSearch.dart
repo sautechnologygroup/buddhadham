@@ -8,15 +8,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:html/parser.dart';
 
-class ReadScreen extends StatefulWidget {
+class ReadScreenForSearch extends StatefulWidget {
   final int initialPage;
-  const ReadScreen({Key? key, required this.initialPage}) : super(key: key);
+  const ReadScreenForSearch({Key? key, required this.initialPage})
+      : super(key: key);
 
   @override
-  State<ReadScreen> createState() => _ReadScreenState();
+  State<ReadScreenForSearch> createState() => _ReadScreenForSearchState();
 }
 
-class _ReadScreenState extends State<ReadScreen> {
+class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
@@ -244,152 +245,14 @@ class _ReadScreenState extends State<ReadScreen> {
     return Scaffold(
       backgroundColor: AppColors().backgroundColor,
       key: _scaffoldKey,
-      drawer: FutureBuilder<List<String>>(
-        future: getDataTextListFuture,
-        builder: (context, AsyncSnapshot<List<String>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return Drawer(
-              elevation: 20.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  DrawerHeader(
-                    decoration: BoxDecoration(color: AppColors().primaryColor),
-                    margin: EdgeInsets.zero,
-                    //padding: EdgeInsets.zero,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/images/logo.png',
-                              width: MediaQuery.of(context).size.width * 0.12,
-                              height: MediaQuery.of(context).size.width * 0.12,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.1,
-                            ),
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    'พุทธธรรม',
-                                    style: GoogleFonts.charmonman(
-                                      textStyle: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors().textColor,
-                                      ),
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    'ฉบับปรับขยาย',
-                                    style: GoogleFonts.charmonman(
-                                      textStyle: TextStyle(
-                                        fontSize: 20,
-                                        color: AppColors().textColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '- สารบัญ -',
-                              style: GoogleFonts.charmonman(
-                                fontSize: 25,
-                                color: AppColors().textColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Color.fromARGB(37, 208, 185, 52),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: [
-                          ...snapshot.data!.asMap().entries.map((entry) {
-                            int index = entry.key;
-                            String pageContent = entry.value;
-                            //String info = parse(pageContent).body?.text ?? '';
-                            // List<String> lines = info.split('\n');
-                            // String cleanInfo = lines
-                            //     .take(1)
-                            //     .map((line) => line.length < 99
-                            //         ? line
-                            //         : line.replaceRange(99, line.length, '...'))
-                            //     .join('\n');
-                            return Column(
-                              children: [
-                                ListTile(
-                                  //tileColor: Color.fromARGB(37, 208, 185, 52),
-                                  title: Text(
-                                    'หน้า ${index + 1}',
-                                    style: GoogleFonts.charmonman(
-                                      fontSize: 20,
-                                      color: AppColors().primaryColor,
-                                      fontWeight: index == currentPageIndex
-                                          ? FontWeight.bold
-                                          : FontWeight
-                                              .normal, // Default color for other pages
-                                    ),
-                                  ),
-                                  subtitle: pageContent.length <= 50
-                                      ? Text('${pageContent}...')
-                                      : Text(
-                                          '${pageContent.substring(0, 50)}...'),
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      currentPageIndex =
-                                          index; // Update the current page index
-                                    });
-                                    _pageController.jumpToPage(index);
-                                  },
-                                ),
-                                Divider(
-                                  color: Colors.grey[400],
-                                  height: 20,
-                                  thickness: 1,
-                                  indent: 5,
-                                  endIndent: 5,
-                                ),
-                              ],
-                            );
-                          }).toList(),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          }
-        },
-      ),
       endDrawer: expandTextFont(),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors().textColor),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         toolbarHeight: 75,
         title: Center(
           child: Column(
@@ -433,7 +296,7 @@ class _ReadScreenState extends State<ReadScreen> {
               child: Icon(
                 FontAwesomeIcons.bookOpen,
                 // size: 35,
-                color: Colors.grey,
+                color: Colors.white,
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);
@@ -12,13 +13,18 @@ class _AboutScreenState extends State<AboutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('เกี่ยวกับ')),
+        title: Center(
+          child: Text(
+            'เกี่ยวกับ',
+            style: GoogleFonts.sarabun(),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+           Text(
               'พุทธธรรม',
               style: TextStyle(fontSize: 24),
             ),

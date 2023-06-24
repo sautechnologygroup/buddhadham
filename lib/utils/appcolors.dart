@@ -11,10 +11,10 @@ class AppColors {
   Color secondaryColor = Colors.amber[600]!;
   Color tertiaryColor = Colors.amber[400]!;
   Color iconColor = Colors.black;
-  Color textColor = Colors.white;
+  Color textColor = Color(0xFFE8D596);
 
-  Color readtextColor = Colors.black;
-  Color backgroundColor = Colors.white;
+  Color readtextColor = const Color.fromARGB(255, 34, 35, 61);
+  Color backgroundColor = Color.fromARGB(37, 208, 185, 52);
 }
 
 class MaterialColorGenerator {

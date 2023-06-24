@@ -1,6 +1,8 @@
+import 'package:buddhadham/views/screenForSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/views/screenForRead.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:html/parser.dart' show parse;
 
 class SearchScreen extends StatefulWidget {
@@ -22,7 +24,11 @@ class _SearchScreenState extends State<SearchScreen> {
         cleanText = cleanText.replaceAll('&nbsp;', ''); // Remove '&nbsp;'
         cleanText =
             cleanText.replaceAll(RegExp(r'\s+'), ' '); // Remove extra spaces
-        searchResults.add('Page ${i + 1}: ${cleanText.substring(0, 50)}...');
+        if (cleanText.length <= 50) {
+          searchResults.add('Page ${i + 1}: ${cleanText}...');
+        } else {
+          searchResults.add('Page ${i + 1}: ${cleanText.substring(0,50)}...');
+        }
       }
     }
 
@@ -31,26 +37,36 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('ค้นหา')),
+        title: Center(
+          child: Text(
+            'ค้นหา',
+            style: GoogleFonts.sarabun(),
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              style: GoogleFonts.sarabun(),
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Search',
+                labelStyle: GoogleFonts.sarabun(),
               ),
               onSubmitted: _search,
             ),
           ),
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const Divider(),
               itemCount: _searchResults.length,
               itemBuilder: (context, index) {
                 return ListTile(
@@ -77,7 +93,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ReadScreen(
+                          builder: (context) => ReadScreenForSearch(
                             initialPage: pageIndex + 1,
                           ),
                         ),
