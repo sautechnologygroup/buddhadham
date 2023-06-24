@@ -433,7 +433,7 @@ class _ReadScreenState extends State<ReadScreen> {
               child: Icon(
                 FontAwesomeIcons.bookOpen,
                 // size: 35,
-                color: Colors.grey,
+                color: AppColors().textColor,
               ),
             ),
           ),

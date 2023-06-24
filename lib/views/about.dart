@@ -1,3 +1,4 @@
+import 'package:buddhadham/utils/appcolors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,6 +13,7 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().backgroundColor,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -24,7 +26,7 @@ class _AboutScreenState extends State<AboutScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-           Text(
+            Text(
               'พุทธธรรม',
               style: TextStyle(fontSize: 24),
             ),

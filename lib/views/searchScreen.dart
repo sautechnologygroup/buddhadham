@@ -1,3 +1,4 @@
+import 'package:buddhadham/utils/appcolors.dart';
 import 'package:buddhadham/views/screenForSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:buddhadham/models/section.dart';
@@ -27,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
         if (cleanText.length <= 50) {
           searchResults.add('Page ${i + 1}: ${cleanText}...');
         } else {
-          searchResults.add('Page ${i + 1}: ${cleanText.substring(0,50)}...');
+          searchResults.add('Page ${i + 1}: ${cleanText.substring(0, 50)}...');
         }
       }
     }
@@ -42,6 +43,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().backgroundColor,
       appBar: AppBar(
         title: Center(
           child: Text(
