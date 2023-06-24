@@ -81,7 +81,7 @@ class _ReadScreenState extends State<ReadScreen> {
                   'ขนาดตัวอักษร',
                   style: GoogleFonts.sarabun(
                       fontSize: 20,
-                      color: AppColors().textColor,
+                      color: AppColors().readtextColor,
                       fontWeight: FontWeight.bold),
                 ),
               ),
@@ -95,7 +95,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 divisions: 90,
                 min: 10.0,
                 max: MediaQuery.of(context).textScaleFactor * 100.0,
-                label: AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
+                // label: AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
@@ -114,8 +114,8 @@ class _ReadScreenState extends State<ReadScreen> {
                       AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
                       style: GoogleFonts.sarabun(
                         fontSize: 20,
-                        fontWeight: FontWeight.w200,
-                        color: AppColors().textColor,
+                        fontWeight: FontWeight.w300,
+                        color: AppColors().readtextColor,
                       ),
                     ),
                     IconButton(
@@ -150,17 +150,18 @@ class _ReadScreenState extends State<ReadScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      '(${thaiNumDigit(AppTextSetting.INDEX_PAGE.toStringAsFixed(0))})',
-                      style: GoogleFonts.charmonman(
-                        fontSize: 20,
-                      ),
-                    ),
+                    // Text(
+                    //   '(${thaiNumDigit(AppTextSetting.INDEX_PAGE.toStringAsFixed(0))})',
+                    //   style: GoogleFonts.charmonman(
+                    //     fontSize: 20,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
               Slider(
                 value: AppTextSetting.INDEX_PAGE,
+
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
@@ -170,8 +171,8 @@ class _ReadScreenState extends State<ReadScreen> {
                 },
                 divisions: (numAllPage - 1).toInt(),
                 min: 1.0,
-                max: numAllPage,
-                label: AppTextSetting.INDEX_PAGE.toInt().toString(),
+                max: 1300,
+                // label: AppTextSetting.INDEX_PAGE.toInt().toString(),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
@@ -200,7 +201,7 @@ class _ReadScreenState extends State<ReadScreen> {
                           controller: _controllerTextField,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'ไปหน้าที่?',
+                            hintText: 'ไปหน้าที่',
                           ),
                           onSubmitted: (String value) {
                             setState(() {
@@ -255,13 +256,17 @@ class _ReadScreenState extends State<ReadScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   SizedBox(
-                    height: 110,
+                    height: MediaQuery.of(context).size.height * 0.15,
                     child: DrawerHeader(
-                      decoration: BoxDecoration(color: Colors.orange),
-                      child: Text('สารบัญ',
-                          style: GoogleFonts.charmonman(
-                            fontSize: 30,
-                          )),
+                      decoration:
+                          BoxDecoration(color: AppColors().primaryColor),
+                      child: Text(
+                        'สารบัญ',
+                        style: GoogleFonts.charmonman(
+                          fontSize: 25,
+                          color: AppColors().textColor,
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -364,9 +369,9 @@ class _ReadScreenState extends State<ReadScreen> {
             child: GestureDetector(
               onTap: () => _scaffoldKey.currentState!.openEndDrawer(),
               child: Icon(
-                FontAwesomeIcons.cog,
+                FontAwesomeIcons.bookOpen,
                 // size: 35,
-                color: AppColors().iconColor,
+                color: Colors.white,
               ),
             ),
           ),
