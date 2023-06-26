@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:html/parser.dart';
 
 class ReadScreen extends StatefulWidget {
   final int initialPage;
@@ -106,12 +105,17 @@ class _ReadScreenState extends State<ReadScreen> {
                       icon: Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
-                          AppTextSetting.APP_FONTSIZE_READ -= 1;
+                          if (AppTextSetting.APP_FONTSIZE_READ == 10) {
+                            AppTextSetting.APP_FONTSIZE_READ = 10;
+                          } else {
+                            AppTextSetting.APP_FONTSIZE_READ -= 1;
+                          }
                         });
                       },
                     ),
                     Text(
-                      AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
+                      thaiNumDigit(
+                          AppTextSetting.APP_FONTSIZE_READ.toInt().toString()),
                       style: GoogleFonts.sarabun(
                         fontSize: 20,
                         fontWeight: FontWeight.w300,
@@ -122,7 +126,11 @@ class _ReadScreenState extends State<ReadScreen> {
                       icon: Icon(Icons.add),
                       onPressed: () {
                         setState(() {
-                          AppTextSetting.APP_FONTSIZE_READ += 1;
+                          if (AppTextSetting.APP_FONTSIZE_READ == 100) {
+                            AppTextSetting.APP_FONTSIZE_READ = 100;
+                          } else {
+                            AppTextSetting.APP_FONTSIZE_READ += 1;
+                          }
                         });
                       },
                     ),
@@ -144,7 +152,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 child: Column(
                   children: [
                     Text(
-                      'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
+                      'หน้าที่ ${thaiNumDigit(AppTextSetting.INDEX_PAGE.toInt().toString())}',
                       style: GoogleFonts.sarabun(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
@@ -244,84 +252,1101 @@ class _ReadScreenState extends State<ReadScreen> {
     return Scaffold(
       backgroundColor: AppColors().backgroundColor,
       key: _scaffoldKey,
-      drawer: FutureBuilder<List<String>>(
-        future: getDataTextListFuture,
-        builder: (context, AsyncSnapshot<List<String>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return Drawer(
-              elevation: 20.0,
+      drawer: Drawer(
+        elevation: 20.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(color: AppColors().primaryColor),
+              margin: EdgeInsets.zero,
+              //padding: EdgeInsets.zero,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  DrawerHeader(
-                    decoration: BoxDecoration(color: AppColors().primaryColor),
-                    margin: EdgeInsets.zero,
-                    //padding: EdgeInsets.zero,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Image.asset(
-                              'assets/images/logo.png',
-                              width: MediaQuery.of(context).size.width * 0.12,
-                              height: MediaQuery.of(context).size.width * 0.12,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.1,
-                            ),
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    'พุทธธรรม',
-                                    style: GoogleFonts.charmonman(
-                                      textStyle: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors().textColor,
-                                      ),
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Text(
-                                    'ฉบับปรับขยาย',
-                                    style: GoogleFonts.charmonman(
-                                      textStyle: TextStyle(
-                                        fontSize: 20,
-                                        color: AppColors().textColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '- สารบัญ -',
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/logo.png',
+                        width: MediaQuery.of(context).size.width * 0.18,
+                        height: MediaQuery.of(context).size.width * 0.18,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                      ),
+                      Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              'พุทธธรรม',
                               style: GoogleFonts.charmonman(
-                                fontSize: 25,
-                                color: AppColors().textColor,
+                                textStyle: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors().textColor,
+                                ),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              '(ฉบับปรับขยาย)',
+                              style: GoogleFonts.charmonman(
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: AppColors().textColor,
+                                ),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '~ สารบัญ ~',
+                        style: GoogleFonts.charmonman(
+                          fontSize: 20,
+                          color: AppColors().textColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: AppColors().backgroundColor,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    //-------------------- ความนำ --------------------
+                    ListTile(
+                      title: Text(
+                        'ความนำ', //thaiNumDigit((index + 1).toString())
+                        style: GoogleFonts.sarabun(
+                          fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                          color: AppColors().primaryColor,
+                          fontWeight:
+                              FontWeight.bold, // Default color for other pages
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex = 0; // Update the current page index
+                        });
+                        _pageController.jumpToPage(0);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- ภาค ๑ มัชเฌนธรรมเทศนา --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'ภาค ๑ มัชเฌนธรรมเทศนา', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑ ขันธ์ ๕ --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑ ขันธ์ ๕ ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๒ อายตนะ ๖  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๒ อายตนะ ๖ ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๓ ไตรลักษณ์  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๓ ไตรลักษณ์', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๔ ปฏิจจสมุปบาท  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๔ ปฏิจจสมุปบาท', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๕ กรรม  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๕ กรรม', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๖ วิชชา วิมุตติ วิสุทธิ สันติ นิพพาน  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๖ วิชชา วิมุตติ วิสุทธิ สันติ นิพพาน', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๗ ประเภทและระดับ แห่งนิพพานและผู้บรรลุนิพพาน  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๗ ประเภทและระดับ แห่งนิพพานและผู้บรรลุนิพพาน', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๘ ข้อควรทราบเพิ่มเติม เพื่อเสริมความเข้าใจ  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๘ ข้อควรทราบเพิ่มเติม เพื่อเสริมความเข้าใจ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๙ หลักการสำคัญ ของการบรรลุนิพพาน   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๙ หลักการสำคัญ ของการบรรลุนิพพาน ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๐ บทสรุป เรื่องเกี่ยวกับนิพพาน  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๐ บทสรุป เรื่องเกี่ยวกับนิพพาน', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- ภาค ๒ มัชฌิมาปฏิปทา  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'ภาค ๒ มัชฌิมาปฏิปทา', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๑ บทนำ ของมัชฌิมาปฏิปทา   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๑ บทนำ ของมัชฌิมาปฏิปทา ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๒ บุพภาคของการศึกษา ๑: ปรโตโฆสะที่ดี = กัลยาณมิตร    --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๒ บุพภาคของการศึกษา ๑: ปรโตโฆสะที่ดี = กัลยาณมิตร  ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๓ บุพภาคของการศึกษา ๒: โยนิโสมนสิการ     --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๓ บุพภาคของการศึกษา ๒: โยนิโสมนสิการ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- ๑๔ องค์ประกอบของมัชฌิมาปฏิปทา ๑: หมวดปัญญา      --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๔ องค์ประกอบของมัชฌิมาปฏิปทา ๑: หมวดปัญญา', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๕ องค์ประกอบของมัชฌิมาปฏิปทา ๒: หมวดศีล      --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '    บทที่ ๑๕ องค์ประกอบของมัชฌิมาปฏิปทา ๒: หมวดศีล', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๖ องค์ประกอบของมัชฌิมาปฏิปทา ๓: หมวดสมาธิ      --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '    บทที่ ๑๖ องค์ประกอบของมัชฌิมาปฏิปทา ๓: หมวดสมาธิ ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๗ บทสรุป: อริยสัจ ๔      --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '    บทที่ ๑๗ บทสรุป: อริยสัจ ๔ ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- ภาค ๓ อารยธรรมวิถี      --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'ภาค ๓ อารยธรรมวิถี ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๘ บทความประกอบที่ ๑:   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๘ บทความประกอบที่ ๑: ชีวิตและคุณธรรมพื้นฐานของอารยชน ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๑๙ บทความประกอบที่ ๒:   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๑๙ บทความประกอบที่ ๒: ศีลกับเจตนารมณ์ทางสังคม ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๒๐ บทความประกอบที่ ๓:   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๒๐ บทความประกอบที่ ๓: เรื่องเหนือสามัญวิสัย: ปาฏิหาริย์ – เทวดา ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๒๑ บทความประกอบที่ ๔:   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๒๑ บทความประกอบที่ ๔: ปัญหาเกี่ยวกับแรงจูงใจ ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๒๒ บทความประกอบที่ ๕:   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๒๒ บทความประกอบที่ ๕: ความสุข ๑: ฉบับแบบแผน ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บทที่ ๒๓ บทความประกอบที่ ๖:   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          '     บทที่ ๒๓ บทความประกอบที่ ๖: ความสุข ๒: ฉบับประมวลความ ', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บรรณาณุกรม   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'บรรณาณุกรม', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บันทึกของผู้เขียน   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'บันทึกของผู้เขียน', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บันทึกการจัดทำข้อมูล   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'บันทึกการจัดทำข้อมูล', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บันทึกไว้ระลึก   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'บันทึกไว้ระลึก', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บันทึก (เรื่องทุนพิมพ์)   --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'บันทึก (เรื่องทุนพิมพ์)', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    Divider(
+                      color: Colors.grey[400],
+                      height: 5,
+                      thickness: 1,
+                      indent: 15,
+                      endIndent: 15,
+                    ),
+                    //-------------------- บันทึกการจัดทำฉบับดิจิทัล  --------------------
+                    ListTile(
+                      //tileColor: Color.fromARGB(37, 208, 185, 52),
+                      title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          'บันทึกการจัดทำฉบับดิจิทัล', //thaiNumDigit((index + 1).toString())
+                          style: GoogleFonts.sarabun(
+                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                            color: AppColors().primaryColor,
+                            fontWeight: FontWeight
+                                .bold, // Default color for other pages
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          currentPageIndex =
+                              10; // Update the current page index
+                        });
+                        _pageController.jumpToPage(10);
+                      },
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.1,
+                    ),
+                  ],
+                ),
+              ),
+            )
+            /*
                   Expanded(
                     child: Container(
                       color: AppColors().backgroundColor,
@@ -344,7 +1369,7 @@ class _ReadScreenState extends State<ReadScreen> {
                                 ListTile(
                                   //tileColor: Color.fromARGB(37, 208, 185, 52),
                                   title: Text(
-                                    'หน้า ${index + 1}',
+                                    'หน้า ${thaiNumDigit((index + 1).toString())}', //thaiNumDigit((index + 1).toString())
                                     style: GoogleFonts.charmonman(
                                       fontSize: 20,
                                       color: AppColors().primaryColor,
@@ -381,48 +1406,72 @@ class _ReadScreenState extends State<ReadScreen> {
                       ),
                     ),
                   )
-                ],
-              ),
-            );
-          }
-        },
+                  */
+          ],
+        ),
       ),
       endDrawer: expandTextFont(),
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors().textColor),
         toolbarHeight: 75,
-        title: Center(
-          child: Column(
+        title: RichText(
+          text: TextSpan(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  'พุทธธรรม',
-                  style: GoogleFonts.charmonman(
-                    textStyle: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors().textColor,
-                    ),
+              TextSpan(
+                text: 'พุทธธรรม',
+                style: GoogleFonts.charmonman(
+                  textStyle: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors().textColor,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'ฉบับปรับขยาย',
-                  style: GoogleFonts.charmonman(
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      color: AppColors().textColor,
-                    ),
+              TextSpan(
+                text: ' (ฉบับปรับขยาย)',
+                style: GoogleFonts.charmonman(
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    color: AppColors().textColor,
                   ),
                 ),
               ),
             ],
           ),
         ),
+        centerTitle: true,
+        // title: Center(
+        //   child: Column(
+        //     children: [
+        //       Align(
+        //         alignment: Alignment.topCenter,
+        //         child: Text(
+        //           'พุทธธรรม',
+        //           style: GoogleFonts.charmonman(
+        //             textStyle: TextStyle(
+        //               fontSize: 25,
+        //               fontWeight: FontWeight.bold,
+        //               color: AppColors().textColor,
+        //             ),
+        //           ),
+        //           textAlign: TextAlign.center,
+        //         ),
+        //       ),
+        //       Align(
+        //         alignment: Alignment.bottomCenter,
+        //         child: Text(
+        //           'ฉบับปรับขยาย',
+        //           style: GoogleFonts.charmonman(
+        //             textStyle: TextStyle(
+        //               fontSize: 20,
+        //               color: AppColors().textColor,
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
         actions: [
           Padding(
             padding: EdgeInsets.only(
@@ -472,25 +1521,33 @@ class _ReadScreenState extends State<ReadScreen> {
                           padding: const EdgeInsets.only(top: 20),
                           child: Wrap(
                             children: [
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'หน้า ' +
-                                      thaiNumDigit((index + 1).toString()),
-                                  // style: TextStyle(
-                                  //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                  //   color: AppColors().readtextColor,
-                                  // ),
-                                  style: GoogleFonts.charmonman(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        AppTextSetting.APP_FONTSIZE_READ + 5,
-                                    color: AppColors().readtextColor,
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'หน้า ' +
+                                        thaiNumDigit((index + 1).toString()),
+                                    // style: TextStyle(
+                                    //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                    //   color: AppColors().readtextColor,
+                                    // ),
+                                    style: GoogleFonts.sarabun(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          AppTextSetting.APP_FONTSIZE_READ + 2,
+                                      color: AppColors().readtextColor,
+                                    ),
                                   ),
                                 ),
                               ),
                               Divider(
-                                color: Colors.black,
+                                color: Colors.grey[400],
                                 height: 20,
                                 thickness: 1,
                                 indent:

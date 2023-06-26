@@ -1,8 +1,8 @@
+import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/utils/appcolors.dart';
 import 'package:buddhadham/views/screenForSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:buddhadham/models/section.dart';
-import 'package:buddhadham/views/screenForRead.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:html/parser.dart' show parse;
 
@@ -15,7 +15,22 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<String> _searchResults = [];
 
-  Future<void> _search(String query) async {
+  String thaiNumDigit(String input) {
+    const english = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const thai = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+
+    for (int i = 0; i < english.length; i++) {
+      input = input.replaceAll(english[i], thai[i]);
+    }
+
+    return input;
+  }
+
+  Future<void> _search(String query) async {   
+    if(query.trim().isEmpty){
+      return;
+    }
+
     List<String> allTexts = await Section.listAllText;
     List<String> searchResults = [];
 
@@ -26,10 +41,12 @@ class _SearchScreenState extends State<SearchScreen> {
         cleanText =
             cleanText.replaceAll(RegExp(r'\s+'), ' '); // Remove extra spaces
         if (cleanText.length <= 50) {
-          searchResults.add('หน้าที่ ${i + 1}: ${cleanText}...');
+          print(cleanText);
+          searchResults.add(
+              'หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.trim()}...'); //thaiNumDigit((index + 1).toString())
         } else {
-          searchResults
-              .add('หน้าที่ ${i + 1}: ${cleanText.substring(0, 50)}...');
+          searchResults.add(
+              'หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.substring(0, 50).trim()}...');
         }
       }
     }
@@ -42,71 +59,174 @@ class _SearchScreenState extends State<SearchScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    print('sxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx${_searchResults.length}');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors().backgroundColor,
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'ค้นหา',
-            style: GoogleFonts.sarabun(),
+        iconTheme: IconThemeData(color: AppColors().textColor),
+        toolbarHeight: 75,
+        title: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'พุทธธรรม',
+                style: GoogleFonts.charmonman(
+                  textStyle: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors().textColor,
+                  ),
+                ),
+              ),
+              TextSpan(
+                text: ' (ฉบับปรับขยาย)',
+                style: GoogleFonts.charmonman(
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    color: AppColors().textColor,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+         centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              style: GoogleFonts.sarabun(),
-              controller: _searchController,
-              decoration: InputDecoration(
-                labelText: 'Search',
-                labelStyle: GoogleFonts.sarabun(),
+          Container(
+            color: AppColors().searchColor1,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.04,
+                vertical: MediaQuery.of(context).size.height * 0.02,
               ),
-              onSubmitted: _search,
+              child: TextField(
+                style: GoogleFonts.sarabun(
+                  color: AppColors().textSearchColor,
+                ),
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: ' ค้นหา (ภาษาไทย)',
+                  hintStyle: GoogleFonts.sarabun(
+                    color: Colors.grey[400],
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors().primaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: AppColors().primaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  filled: true,
+                  fillColor: AppColors().primaryColor,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey[400],
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      Icons.cancel,
+                      color: Colors.grey[400],
+                    ),
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() {
+                        _searchResults = [];
+                      });
+                    },
+                  ),
+                ),
+                onSubmitted: _search,
+                textInputAction: TextInputAction.search,
+              ),
             ),
           ),
-          Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const Divider(),
-              itemCount: _searchResults.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_searchResults[index]),
-                  onTap: () async {
-                    int pageNumber = index + 1; // Get the correct page number
-
-                    List<String> allTexts = await Section.listAllText;
-                    String query = _searchController.text;
-                    int page = 0;
-                    int pageIndex = -1;
-
-                    for (int i = 0; i < allTexts.length; i++) {
-                      if (allTexts[i].contains(query)) {
-                        page++;
-                        if (page == pageNumber) {
-                          pageIndex = i;
-                          break;
-                        }
-                      }
-                    }
-
-                    if (pageIndex != -1) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReadScreenForSearch(
-                            initialPage: pageIndex + 1,
+          _searchResults.length == 0
+              ? Container()
+              : Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.025,
+                      ),
+                      child: Divider(),
+                    ),
+                    itemCount: _searchResults.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        // title: Text(
+                        //   _searchResults[index],
+                        //   style: GoogleFonts.sarabun(),
+                        // ),
+                        title: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: _searchResults[index].substring(0, 13),
+                                style: GoogleFonts.sarabun(
+                                  color: AppColors().primaryColor,
+                                  fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextSpan(
+                                text: _searchResults[index].substring(
+                                  13,
+                                ),
+                                style: GoogleFonts.sarabun(
+                                  color: AppColors().primaryColor,
+                                  fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        onTap: () async {
+                          int pageNumber =
+                              index + 1; // Get the correct page number
+
+                          List<String> allTexts = await Section.listAllText;
+                          String query = _searchController.text;
+                          int page = 0;
+                          int pageIndex = -1;
+
+                          for (int i = 0; i < allTexts.length; i++) {
+                            if (allTexts[i].contains(query)) {
+                              page++;
+                              if (page == pageNumber) {
+                                pageIndex = i;
+                                break;
+                              }
+                            }
+                          }
+
+                          if (pageIndex != -1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ReadScreenForSearch(
+                                  initialPage: pageIndex + 1,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       );
-                    }
-                  },
-                );
-              },
-            ),
-          ),
+                    },
+                  ),
+                ),
         ],
       ),
     );

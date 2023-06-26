@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:html/parser.dart';
 
 class ReadScreenForSearch extends StatefulWidget {
   final int initialPage;
@@ -31,6 +30,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
   void initState() {
     getDataTextListFuture = getData()!;
     _pageController = PageController(initialPage: widget.initialPage - 1);
+    AppTextSetting.INDEX_PAGE = widget.initialPage.toDouble();
     super.initState();
   }
 
@@ -107,12 +107,17 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                       icon: Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
-                          AppTextSetting.APP_FONTSIZE_READ -= 1;
+                          if (AppTextSetting.APP_FONTSIZE_READ == 10) {
+                            AppTextSetting.APP_FONTSIZE_READ = 10;
+                          } else {
+                            AppTextSetting.APP_FONTSIZE_READ -= 1;
+                          }
                         });
                       },
                     ),
                     Text(
-                      AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
+                      thaiNumDigit(
+                          AppTextSetting.APP_FONTSIZE_READ.toInt().toString()),
                       style: GoogleFonts.sarabun(
                         fontSize: 20,
                         fontWeight: FontWeight.w300,
@@ -123,7 +128,11 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                       icon: Icon(Icons.add),
                       onPressed: () {
                         setState(() {
-                          AppTextSetting.APP_FONTSIZE_READ += 1;
+                          if (AppTextSetting.APP_FONTSIZE_READ == 100) {
+                            AppTextSetting.APP_FONTSIZE_READ = 100;
+                          } else {
+                            AppTextSetting.APP_FONTSIZE_READ += 1;
+                          }
                         });
                       },
                     ),
@@ -145,7 +154,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                 child: Column(
                   children: [
                     Text(
-                      'หน้าที่ ${AppTextSetting.INDEX_PAGE.toInt()}',
+                      'หน้าที่ ${thaiNumDigit(AppTextSetting.INDEX_PAGE.toInt().toString())}',
                       style: GoogleFonts.sarabun(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
@@ -251,41 +260,38 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: AppColors().textColor,
+          ),
         ),
         toolbarHeight: 75,
-        title: Center(
-          child: Column(
+        title: RichText(
+          text: TextSpan(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  'พุทธธรรม',
-                  style: GoogleFonts.charmonman(
-                    textStyle: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors().textColor,
-                    ),
+              TextSpan(
+                text: 'พุทธธรรม',
+                style: GoogleFonts.charmonman(
+                  textStyle: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors().textColor,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  'ฉบับปรับขยาย',
-                  style: GoogleFonts.charmonman(
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      color: AppColors().textColor,
-                    ),
+              TextSpan(
+                text: ' (ฉบับปรับขยาย)',
+                style: GoogleFonts.charmonman(
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    color: AppColors().textColor,
                   ),
                 ),
               ),
             ],
           ),
         ),
+        centerTitle: true,
         actions: [
           Padding(
             padding: EdgeInsets.only(
@@ -295,8 +301,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
               onTap: () => _scaffoldKey.currentState!.openEndDrawer(),
               child: Icon(
                 FontAwesomeIcons.bookOpen,
-                // size: 35,
-                color: Colors.white,
+               color: AppColors().textColor,
               ),
             ),
           ),
@@ -335,25 +340,33 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                           padding: const EdgeInsets.only(top: 20),
                           child: Wrap(
                             children: [
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'หน้า ' +
-                                      thaiNumDigit((index + 1).toString()),
-                                  // style: TextStyle(
-                                  //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                  //   color: AppColors().readtextColor,
-                                  // ),
-                                  style: GoogleFonts.charmonman(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        AppTextSetting.APP_FONTSIZE_READ + 5,
-                                    color: AppColors().readtextColor,
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.025,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    'หน้า ' +
+                                        thaiNumDigit((index + 1).toString()),
+                                    // style: TextStyle(
+                                    //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                    //   color: AppColors().readtextColor,
+                                    // ),
+                                    style: GoogleFonts.sarabun(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          AppTextSetting.APP_FONTSIZE_READ + 2,
+                                      color: AppColors().readtextColor,
+                                    ),
                                   ),
                                 ),
                               ),
                               Divider(
-                                color: Colors.black,
+                                color: Colors.grey[400],
                                 height: 20,
                                 thickness: 1,
                                 indent:
