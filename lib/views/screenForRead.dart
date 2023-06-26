@@ -404,9 +404,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              23; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(23);
                       },
                     ),
                     Divider(
@@ -435,9 +435,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              38; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(38);
                       },
                     ),
                     Divider(
@@ -466,9 +466,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              73; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(73);
                       },
                     ),
                     Divider(
@@ -497,9 +497,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              167; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(167);
                       },
                     ),
                     Divider(
@@ -528,9 +528,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              250; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(250);
                       },
                     ),
                     Divider(
@@ -559,9 +559,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              344; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(344);
                       },
                     ),
                     Divider(
@@ -590,9 +590,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              406; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(406);
                       },
                     ),
                     Divider(
@@ -621,9 +621,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              448; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(448);
                       },
                     ),
                     Divider(
@@ -652,9 +652,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              464; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(464);
                       },
                     ),
                     Divider(
@@ -683,9 +683,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              510; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(510);
                       },
                     ),
                     Divider(
@@ -714,9 +714,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              534; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(534);
                       },
                     ),
                     Divider(
@@ -745,9 +745,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              552; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(552);
                       },
                     ),
                     Divider(
@@ -776,9 +776,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              613; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(613);
                       },
                     ),
                     Divider(
@@ -807,9 +807,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              661; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(661);
                       },
                     ),
                     Divider(
@@ -838,9 +838,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              745; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(745);
                       },
                     ),
                     Divider(
@@ -869,9 +869,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              769; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(769);
                       },
                     ),
                     Divider(
@@ -900,9 +900,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              817; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(817);
                       },
                     ),
                     Divider(
@@ -931,9 +931,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              914; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(914);
                       },
                     ),
                     Divider(
@@ -962,9 +962,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              949; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(949);
                       },
                     ),
                     Divider(
@@ -993,9 +993,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              951; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(951);
                       },
                     ),
                     Divider(
@@ -1024,9 +1024,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              984; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(984);
                       },
                     ),
                     Divider(
@@ -1055,9 +1055,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1011; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1011);
                       },
                     ),
                     Divider(
@@ -1086,9 +1086,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1042; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1042);
                       },
                     ),
                     Divider(
@@ -1117,9 +1117,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1095; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1095);
                       },
                     ),
                     Divider(
@@ -1148,9 +1148,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1143; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1143);
                       },
                     ),
                     Divider(
@@ -1179,9 +1179,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1212; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1212);
                       },
                     ),
                     Divider(
@@ -1210,9 +1210,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1218; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1218);
                       },
                     ),
                     Divider(
@@ -1241,9 +1241,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1227; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1227);
                       },
                     ),
                     Divider(
@@ -1272,9 +1272,9 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1229; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1229);
                       },
                     ),
                     Divider(
@@ -1303,42 +1303,42 @@ class _ReadScreenState extends State<ReadScreen> {
                         Navigator.pop(context);
                         setState(() {
                           currentPageIndex =
-                              10; // Update the current page index
+                              1260; // Update the current page index
                         });
-                        _pageController.jumpToPage(10);
+                        _pageController.jumpToPage(1260);
                       },
                     ),
-                    Divider(
-                      color: Colors.grey[400],
-                      height: 5,
-                      thickness: 1,
-                      indent: 15,
-                      endIndent: 15,
-                    ),
-                    //-------------------- บันทึกการจัดทำฉบับดิจิทัล  --------------------
-                    ListTile(
-                      //tileColor: Color.fromARGB(37, 208, 185, 52),
-                      title: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          'บันทึกการจัดทำฉบับดิจิทัล', //thaiNumDigit((index + 1).toString())
-                          style: GoogleFonts.sarabun(
-                            fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
-                            color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        setState(() {
-                          currentPageIndex =
-                              10; // Update the current page index
-                        });
-                        _pageController.jumpToPage(10);
-                      },
-                    ),
+                    // Divider(
+                    //   color: Colors.grey[400],
+                    //   height: 5,
+                    //   thickness: 1,
+                    //   indent: 15,
+                    //   endIndent: 15,
+                    // ),
+                    // //-------------------- บันทึกการจัดทำฉบับดิจิทัล  --------------------
+                    // ListTile(
+                    //   //tileColor: Color.fromARGB(37, 208, 185, 52),
+                    //   title: SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     child: Text(
+                    //       'บันทึกการจัดทำฉบับดิจิทัล', //thaiNumDigit((index + 1).toString())
+                    //       style: GoogleFonts.sarabun(
+                    //         fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                    //         color: AppColors().primaryColor,
+                    //         fontWeight: FontWeight
+                    //             .bold, // Default color for other pages
+                    //       ),
+                    //     ),
+                    //   ),
+                    //   onTap: () {
+                    //     Navigator.pop(context);
+                    //     setState(() {
+                    //       currentPageIndex =
+                    //           10; // Update the current page index
+                    //     });
+                    //     _pageController.jumpToPage(10);
+                    //   },
+                    // ),
                     SizedBox(
                       height: MediaQuery.of(context).size.width * 0.1,
                     ),
