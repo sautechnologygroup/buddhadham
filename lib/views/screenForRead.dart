@@ -17,8 +17,7 @@ class ReadScreen extends StatefulWidget {
 
 class _ReadScreenState extends State<ReadScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   final TextEditingController searchTextController = TextEditingController();
   late Future<List<String>> getDataTextListFuture;
   double numAllPage = 2;
@@ -78,10 +77,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: GoogleFonts.sarabun(
-                      fontSize: 20,
-                      color: AppColors().readtextColor,
-                      fontWeight: FontWeight.bold),
+                  style: GoogleFonts.sarabun(fontSize: 20, color: AppColors().readtextColor, fontWeight: FontWeight.bold),
                 ),
               ),
               Slider(
@@ -114,8 +110,7 @@ class _ReadScreenState extends State<ReadScreen> {
                       },
                     ),
                     Text(
-                      thaiNumDigit(
-                          AppTextSetting.APP_FONTSIZE_READ.toInt().toString()),
+                      thaiNumDigit(AppTextSetting.APP_FONTSIZE_READ.toInt().toString()),
                       style: GoogleFonts.sarabun(
                         fontSize: 20,
                         fontWeight: FontWeight.w300,
@@ -173,8 +168,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController
-                        .jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
@@ -201,8 +195,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextField(
                           textAlign: TextAlign.center,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],
@@ -216,8 +209,7 @@ class _ReadScreenState extends State<ReadScreen> {
                               int? pageNumber = int.tryParse(value);
                               if (pageNumber != null && pageNumber >= 1) {
                                 AppTextSetting.INDEX_PAGE = pageNumber - 1;
-                                _pageController.jumpToPage(
-                                    AppTextSetting.INDEX_PAGE.toInt());
+                                _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                                 _controllerTextField.clear();
                                 Navigator.pop(context);
                               } else {
@@ -335,8 +327,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         style: GoogleFonts.sarabun(
                           fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                           color: AppColors().primaryColor,
-                          fontWeight:
-                              FontWeight.bold, // Default color for other pages
+                          fontWeight: FontWeight.bold, // Default color for other pages
                         ),
                       ),
                       onTap: () {
@@ -364,16 +355,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              10; // Update the current page index
+                          currentPageIndex = 10; // Update the current page index
                         });
                         _pageController.jumpToPage(10);
                       },
@@ -395,16 +384,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              23; // Update the current page index
+                          currentPageIndex = 23; // Update the current page index
                         });
                         _pageController.jumpToPage(23);
                       },
@@ -426,16 +413,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              38; // Update the current page index
+                          currentPageIndex = 38; // Update the current page index
                         });
                         _pageController.jumpToPage(38);
                       },
@@ -457,16 +442,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              73; // Update the current page index
+                          currentPageIndex = 73; // Update the current page index
                         });
                         _pageController.jumpToPage(73);
                       },
@@ -488,16 +471,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              167; // Update the current page index
+                          currentPageIndex = 167; // Update the current page index
                         });
                         _pageController.jumpToPage(167);
                       },
@@ -519,16 +500,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              250; // Update the current page index
+                          currentPageIndex = 250; // Update the current page index
                         });
                         _pageController.jumpToPage(250);
                       },
@@ -550,16 +529,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              344; // Update the current page index
+                          currentPageIndex = 344; // Update the current page index
                         });
                         _pageController.jumpToPage(344);
                       },
@@ -581,16 +558,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              406; // Update the current page index
+                          currentPageIndex = 406; // Update the current page index
                         });
                         _pageController.jumpToPage(406);
                       },
@@ -612,16 +587,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              448; // Update the current page index
+                          currentPageIndex = 448; // Update the current page index
                         });
                         _pageController.jumpToPage(448);
                       },
@@ -643,16 +616,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              464; // Update the current page index
+                          currentPageIndex = 464; // Update the current page index
                         });
                         _pageController.jumpToPage(464);
                       },
@@ -674,16 +645,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              510; // Update the current page index
+                          currentPageIndex = 510; // Update the current page index
                         });
                         _pageController.jumpToPage(510);
                       },
@@ -705,16 +674,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              534; // Update the current page index
+                          currentPageIndex = 534; // Update the current page index
                         });
                         _pageController.jumpToPage(534);
                       },
@@ -736,16 +703,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              552; // Update the current page index
+                          currentPageIndex = 552; // Update the current page index
                         });
                         _pageController.jumpToPage(552);
                       },
@@ -767,16 +732,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              613; // Update the current page index
+                          currentPageIndex = 613; // Update the current page index
                         });
                         _pageController.jumpToPage(613);
                       },
@@ -798,16 +761,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              661; // Update the current page index
+                          currentPageIndex = 661; // Update the current page index
                         });
                         _pageController.jumpToPage(661);
                       },
@@ -829,16 +790,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              745; // Update the current page index
+                          currentPageIndex = 745; // Update the current page index
                         });
                         _pageController.jumpToPage(745);
                       },
@@ -860,16 +819,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              769; // Update the current page index
+                          currentPageIndex = 769; // Update the current page index
                         });
                         _pageController.jumpToPage(769);
                       },
@@ -891,16 +848,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              817; // Update the current page index
+                          currentPageIndex = 817; // Update the current page index
                         });
                         _pageController.jumpToPage(817);
                       },
@@ -922,16 +877,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              914; // Update the current page index
+                          currentPageIndex = 914; // Update the current page index
                         });
                         _pageController.jumpToPage(914);
                       },
@@ -953,16 +906,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              949; // Update the current page index
+                          currentPageIndex = 949; // Update the current page index
                         });
                         _pageController.jumpToPage(949);
                       },
@@ -984,16 +935,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              951; // Update the current page index
+                          currentPageIndex = 951; // Update the current page index
                         });
                         _pageController.jumpToPage(951);
                       },
@@ -1015,16 +964,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              984; // Update the current page index
+                          currentPageIndex = 984; // Update the current page index
                         });
                         _pageController.jumpToPage(984);
                       },
@@ -1046,16 +993,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1011; // Update the current page index
+                          currentPageIndex = 1011; // Update the current page index
                         });
                         _pageController.jumpToPage(1011);
                       },
@@ -1077,16 +1022,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1042; // Update the current page index
+                          currentPageIndex = 1042; // Update the current page index
                         });
                         _pageController.jumpToPage(1042);
                       },
@@ -1108,16 +1051,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1095; // Update the current page index
+                          currentPageIndex = 1095; // Update the current page index
                         });
                         _pageController.jumpToPage(1095);
                       },
@@ -1139,16 +1080,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1143; // Update the current page index
+                          currentPageIndex = 1143; // Update the current page index
                         });
                         _pageController.jumpToPage(1143);
                       },
@@ -1170,16 +1109,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1212; // Update the current page index
+                          currentPageIndex = 1212; // Update the current page index
                         });
                         _pageController.jumpToPage(1212);
                       },
@@ -1201,16 +1138,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1218; // Update the current page index
+                          currentPageIndex = 1218; // Update the current page index
                         });
                         _pageController.jumpToPage(1218);
                       },
@@ -1232,16 +1167,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1227; // Update the current page index
+                          currentPageIndex = 1227; // Update the current page index
                         });
                         _pageController.jumpToPage(1227);
                       },
@@ -1263,16 +1196,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1229; // Update the current page index
+                          currentPageIndex = 1229; // Update the current page index
                         });
                         _pageController.jumpToPage(1229);
                       },
@@ -1294,16 +1225,14 @@ class _ReadScreenState extends State<ReadScreen> {
                           style: GoogleFonts.sarabun(
                             fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1260; // Update the current page index
+                          currentPageIndex = 1260; // Update the current page index
                         });
                         _pageController.jumpToPage(1260);
                       },
@@ -1523,24 +1452,20 @@ class _ReadScreenState extends State<ReadScreen> {
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.025,
+                                  left: MediaQuery.of(context).size.width * 0.025,
+                                  right: MediaQuery.of(context).size.width * 0.025,
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    'หน้า ' +
-                                        thaiNumDigit((index + 1).toString()),
+                                    'หน้า ' + thaiNumDigit((index + 1).toString()),
                                     // style: TextStyle(
                                     //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
                                     //   color: AppColors().readtextColor,
                                     // ),
                                     style: GoogleFonts.sarabun(
                                       fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          AppTextSetting.APP_FONTSIZE_READ + 2,
+                                      fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
                                       color: AppColors().readtextColor,
                                     ),
                                   ),
@@ -1550,20 +1475,16 @@ class _ReadScreenState extends State<ReadScreen> {
                                 color: Colors.grey[400],
                                 height: 20,
                                 thickness: 1,
-                                indent:
-                                    MediaQuery.of(context).size.width * 0.025,
-                                endIndent:
-                                    MediaQuery.of(context).size.width * 0.025,
+                                indent: MediaQuery.of(context).size.width * 0.025,
+                                endIndent: MediaQuery.of(context).size.width * 0.025,
                               ),
                               SizedBox(
                                 height: 30,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.025,
+                                  left: MediaQuery.of(context).size.width * 0.025,
+                                  right: MediaQuery.of(context).size.width * 0.025,
                                 ),
                                 child: HtmlWidget(
                                   snapshot.data![index],

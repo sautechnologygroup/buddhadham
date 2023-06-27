@@ -26,8 +26,8 @@ class _SearchScreenState extends State<SearchScreen> {
     return input;
   }
 
-  Future<void> _search(String query) async {   
-    if(query.trim().isEmpty){
+  Future<void> _search(String query) async {
+    if (query.trim().isEmpty) {
       return;
     }
 
@@ -38,15 +38,12 @@ class _SearchScreenState extends State<SearchScreen> {
       if (allTexts[i].contains(query)) {
         String cleanText = parse(allTexts[i]).body?.text ?? '';
         cleanText = cleanText.replaceAll('&nbsp;', ''); // Remove '&nbsp;'
-        cleanText =
-            cleanText.replaceAll(RegExp(r'\s+'), ' '); // Remove extra spaces
+        cleanText = cleanText.replaceAll(RegExp(r'\s+'), ' '); // Remove extra spaces
         if (cleanText.length <= 50) {
           print(cleanText);
-          searchResults.add(
-              'หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.trim()}...'); //thaiNumDigit((index + 1).toString())
+          searchResults.add('หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.trim()}...'); //thaiNumDigit((index + 1).toString())
         } else {
-          searchResults.add(
-              'หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.substring(0, 50).trim()}...');
+          searchResults.add('หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.substring(0, 50).trim()}...');
         }
       }
     }
@@ -56,11 +53,10 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  //GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    print('sxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx${_searchResults.length}');
     super.initState();
   }
 
@@ -96,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ],
           ),
         ),
-         centerTitle: true,
+        centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
@@ -154,7 +150,25 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           _searchResults.length == 0
-              ? Container()
+              ? Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.025,
+                      ),
+                      child: Divider(),
+                    ),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                          title: Text(
+                            ' ',
+                            style: GoogleFonts.sarabun(),
+                          ),
+                          onTap: () async {});
+                    },
+                  ),
+                )
               : Expanded(
                   child: ListView.separated(
                     separatorBuilder: (context, index) => Padding(
@@ -194,8 +208,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         ),
                         onTap: () async {
-                          int pageNumber =
-                              index + 1; // Get the correct page number
+                          int pageNumber = index + 1; // Get the correct page number
 
                           List<String> allTexts = await Section.listAllText;
                           String query = _searchController.text;
@@ -218,6 +231,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               MaterialPageRoute(
                                 builder: (context) => ReadScreenForSearch(
                                   initialPage: pageIndex + 1,
+                                  searchText: _searchController.text,
                                 ),
                               ),
                             );

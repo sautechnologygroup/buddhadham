@@ -2,15 +2,15 @@ import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/utils/appcolors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ReadScreenForSearch extends StatefulWidget {
   final int initialPage;
-  const ReadScreenForSearch({Key? key, required this.initialPage})
-      : super(key: key);
+  final String searchText;
+  const ReadScreenForSearch({Key? key, required this.initialPage, required this.searchText}) : super(key: key);
 
   @override
   State<ReadScreenForSearch> createState() => _ReadScreenForSearchState();
@@ -18,18 +18,17 @@ class ReadScreenForSearch extends StatefulWidget {
 
 class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   final TextEditingController searchTextController = TextEditingController();
   late Future<List<String>> getDataTextListFuture;
   double numAllPage = 2;
-  PageController _pageController = PageController(viewportFraction: 1);
+  // PageController _pageController = PageController(viewportFraction: 1);
   final TextEditingController _controllerTextField = TextEditingController();
 
   @override
   void initState() {
     getDataTextListFuture = getData()!;
-    _pageController = PageController(initialPage: widget.initialPage - 1);
+    // _pageController = PageController(initialPage: widget.initialPage - 1);
     AppTextSetting.INDEX_PAGE = widget.initialPage.toDouble();
     super.initState();
   }
@@ -80,10 +79,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: GoogleFonts.sarabun(
-                      fontSize: 20,
-                      color: AppColors().readtextColor,
-                      fontWeight: FontWeight.bold),
+                  style: GoogleFonts.sarabun(fontSize: 20, color: AppColors().readtextColor, fontWeight: FontWeight.bold),
                 ),
               ),
               Slider(
@@ -116,8 +112,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                       },
                     ),
                     Text(
-                      thaiNumDigit(
-                          AppTextSetting.APP_FONTSIZE_READ.toInt().toString()),
+                      thaiNumDigit(AppTextSetting.APP_FONTSIZE_READ.toInt().toString()),
                       style: GoogleFonts.sarabun(
                         fontSize: 20,
                         fontWeight: FontWeight.w300,
@@ -139,6 +134,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                   ],
                 ),
               ),
+              /*
               Padding(
                 padding: const EdgeInsets.only(top: 30, bottom: 10),
                 child: const Divider(
@@ -160,12 +156,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    // Text(
-                    //   '(${thaiNumDigit(AppTextSetting.INDEX_PAGE.toStringAsFixed(0))})',
-                    //   style: GoogleFonts.charmonman(
-                    //     fontSize: 20,
-                    //   ),
-                    // ),
+                   
                   ],
                 ),
               ),
@@ -175,8 +166,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController
-                        .jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
@@ -203,8 +193,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextField(
                           textAlign: TextAlign.center,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],
@@ -218,8 +207,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                               int? pageNumber = int.tryParse(value);
                               if (pageNumber != null && pageNumber >= 1) {
                                 AppTextSetting.INDEX_PAGE = pageNumber - 1;
-                                _pageController.jumpToPage(
-                                    AppTextSetting.INDEX_PAGE.toInt());
+                                _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                                 _controllerTextField.clear();
                                 Navigator.pop(context);
                               } else {
@@ -242,6 +230,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                   ],
                 ),
               ),
+              */
             ],
           ),
         ),
@@ -301,7 +290,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
               onTap: () => _scaffoldKey.currentState!.openEndDrawer(),
               child: Icon(
                 FontAwesomeIcons.bookOpen,
-               color: AppColors().textColor,
+                color: AppColors().textColor,
               ),
             ),
           ),
@@ -315,92 +304,70 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            return PageView.builder(
-              itemCount: snapshot.data!.length,
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  AppTextSetting.INDEX_PAGE = index.toDouble() + 1;
-                });
-              },
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
+            snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll(widget.searchText, '<mark>${widget.searchText}</mark>');
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: const EdgeInsets.all(1),
+                child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 10,
-                          right: 10,
-                          bottom: 10,
-                          top: 5,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Wrap(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                ),
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text(
-                                    'หน้า ' +
-                                        thaiNumDigit((index + 1).toString()),
-                                    // style: TextStyle(
-                                    //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                    //   color: AppColors().readtextColor,
-                                    // ),
-                                    style: GoogleFonts.sarabun(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize:
-                                          AppTextSetting.APP_FONTSIZE_READ + 2,
-                                      color: AppColors().readtextColor,
-                                    ),
-                                  ),
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      bottom: 10,
+                      top: 5,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Wrap(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.025,
+                              right: MediaQuery.of(context).size.width * 0.025,
+                            ),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Text(
+                                'หน้า ' + thaiNumDigit((widget.initialPage).toString()),
+                                style: GoogleFonts.sarabun(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                                  color: AppColors().readtextColor,
                                 ),
                               ),
-                              Divider(
-                                color: Colors.grey[400],
-                                height: 20,
-                                thickness: 1,
-                                indent:
-                                    MediaQuery.of(context).size.width * 0.025,
-                                endIndent:
-                                    MediaQuery.of(context).size.width * 0.025,
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                ),
-                                child: HtmlWidget(
-                                  snapshot.data![index],
-                                  textStyle: GoogleFonts.sarabun(
-                                    fontSize: AppTextSetting.APP_FONTSIZE_READ,
-                                    color: AppColors().readtextColor,
-                                    height: 1.7,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
+                          Divider(
+                            color: Colors.grey[400],
+                            height: 20,
+                            thickness: 1,
+                            indent: MediaQuery.of(context).size.width * 0.025,
+                            endIndent: MediaQuery.of(context).size.width * 0.025,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.025,
+                              right: MediaQuery.of(context).size.width * 0.025,
+                            ),
+                            child: HtmlWidget(
+                              snapshot.data![widget.initialPage - 1],
+                              textStyle: GoogleFonts.sarabun(
+                                fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                color: AppColors().readtextColor,
+                                height: 1.7,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                );
-              },
+                ),
+              ),
             );
           }
         },
