@@ -7,9 +7,8 @@ class AppColors {
   // Color primaryColor = Colors.amber[800]!;
 
   Color primaryColor = Color.fromARGB(255, 34, 35, 61);
-  
-  Color searchColor1 = Color.fromARGB(255, 49, 51, 87);
 
+  Color searchColor1 = Color.fromARGB(255, 49, 51, 87);
 
   Color secondaryColor = Colors.amber[600]!;
   Color tertiaryColor = Colors.amber[400]!;
