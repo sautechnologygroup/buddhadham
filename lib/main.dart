@@ -15,7 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 void main() {
   runApp(BuddhadhamApp());
 }
-
+//-------------------
 class BuddhadhamApp extends StatelessWidget {
   BuddhadhamApp({Key? key}) : super(key: key);
   MaterialColor primary_color = AppColors().primarAppColor;
@@ -34,7 +34,7 @@ class BuddhadhamApp extends StatelessWidget {
     );
   }
 }
-
+//-------------------
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 

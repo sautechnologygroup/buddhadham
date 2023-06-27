@@ -1434,6 +1434,8 @@ class _ReadScreenState extends State<ReadScreen> {
                 });
               },
               itemBuilder: (BuildContext context, int index) {
+                snapshot.data![index] = snapshot.data![index].replaceAll('<mark>', '');
+                snapshot.data![index] = snapshot.data![index].replaceAll('</mark>', '');
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(

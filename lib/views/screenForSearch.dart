@@ -1,8 +1,8 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/utils/appcolors.dart';
+
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +35,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
 
   @override
   void dispose() {
-    _controllerTextField.dispose();
+    _controllerTextField.dispose();    
     super.dispose();
   }
 
@@ -141,6 +141,8 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
     );
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,6 +209,8 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
+            snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll('<mark>', '');
+            snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll('</mark>', '');
             snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll(widget.searchText, '<mark>${widget.searchText}</mark>');
             return Container(
               width: MediaQuery.of(context).size.width,

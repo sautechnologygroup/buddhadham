@@ -53,8 +53,6 @@ class _SearchScreenState extends State<SearchScreen> {
     });
   }
 
-  //GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
     super.initState();
