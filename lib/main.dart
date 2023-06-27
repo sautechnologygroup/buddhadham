@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// void main() {
+//   runApp(BuddhadhamApp());
+// }
+
 void main() {
   runApp(BuddhadhamApp());
 }
@@ -20,20 +24,27 @@ class BuddhadhamApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      color: Colors.black,
       title: 'BuddhadhamApp',
       theme: ThemeData(
         primarySwatch: primary_color,
       ),
-      home: const MainScreen(),
+      home: MainScreen(),
+      // home: MainWidget(),
     );
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
+  void initState() {
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
@@ -41,7 +52,13 @@ class MainScreen extends StatelessWidget {
       );
     });
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -78,6 +95,11 @@ class _MainWidgetState extends State<MainWidget> {
     // LogListScreen(),
     AboutScreen(), // Replace with your desired widget for the Settings screen
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
