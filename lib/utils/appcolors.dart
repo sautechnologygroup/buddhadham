@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // MaterialColor primarAppColor = Colors.orange;
-  MaterialColor primarAppColor = MaterialColorGenerator.from(Color.fromARGB(255, 34, 35, 61));
+  MaterialColor primarAppColor =
+      MaterialColorGenerator.from(Color.fromARGB(255, 34, 35, 61));
   // Color primaryColor = Colors.amber[800]!;
 
   Color primaryColor = Color.fromARGB(255, 34, 35, 61);
