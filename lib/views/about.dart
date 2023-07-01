@@ -1,6 +1,7 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/utils/appcolors.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -74,7 +75,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   'พุทธธรรม',
                   style: GoogleFonts.charmonman(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ + 20,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ + 20
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET + 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -84,7 +87,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   '(ฉบับปรับขยาย)',
                   style: GoogleFonts.prompt(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ + 2
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                     ),
                   ),
                   textAlign: TextAlign.center,
@@ -93,7 +98,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   '~ ※ ~',
                   style: GoogleFonts.prompt(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ + 2
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -103,7 +110,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   'สมเด็จพระพุทธโฆษาจารย์',
                   style: GoogleFonts.prompt(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ + 2
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                     ),
                   ),
                   textAlign: TextAlign.center,
@@ -112,7 +121,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   'ป. อ. ปยุตฺโต',
                   style: GoogleFonts.prompt(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ + 2
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -125,7 +136,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   'จดหมายได้รับการอนุญาติในการพัฒนาแอปพลิเคชันพุทธธรรมบนระบบสมาร์ทโฟน\nจากพระเดชพระคุณหลวงพ่อ พระพรหมคุณากรณ์\n(ป. อ. ปยุตฺโต)\n\nได้รับการสนับสนุนการจัดทำโดย\nมหาวิทยาลัยเอเชียอาคเนย์',
                   style: GoogleFonts.sarabun(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                     ),
                   ),
                   textAlign: TextAlign.center,
@@ -141,7 +154,9 @@ class _AboutScreenState extends State<AboutScreen> {
                     'http://www.sau.ac.th',
                     style: GoogleFonts.sarabun(
                       textStyle: TextStyle(
-                        fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                        fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -151,7 +166,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   'คุณเสริมสิน สมะลาภา\nนายกสภามหาวิทยาลัยเอเชียอาคเนย์\n\nคณะกรรมการทำนุบำรุง\nศาสนามหาวิทยาลัยเอเชียอาคเนย์\n\nคุณฉันทวุฒิ พีชผล\nอธิการบดีมหาวิทยาลัยเอเชียอาคเนย์\n\nคุณปิยพงศ์ เผ่าวณิช \nกรรมการสภามหาวิทยาลัยเอเชียอาคเนย์\n\nคุณเลิศพนธ์ อัจฉรานันท์\nผู้ช่วยอธิการบดีมหาวิทยาลัยเอเชียอาคเนย์\n\nผู้สนับสนุนการจัดทำ\nคณาจารย์  บุคลากร มหาวิทยาลัยเอเชียอาคเนย์\nและผู้ไม่ประสงค์ออกนาม\n\nสามารถดาวน์โหลดหนังสือธรรมะอื่นๆ\nและพุทธธรรมฉบับพีดีเอฟ (PDF) ได้ที่',
                   style: GoogleFonts.sarabun(
                     textStyle: TextStyle(
-                      fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                      fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                     ),
                   ),
                   textAlign: TextAlign.center,
@@ -167,7 +184,9 @@ class _AboutScreenState extends State<AboutScreen> {
                     'http://dhamma.sau.ac.th',
                     style: GoogleFonts.sarabun(
                       textStyle: TextStyle(
-                        fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                        fontSize: SizerUtil.deviceType == DeviceType.mobile
+                      ? AppTextSetting.APP_FONTSIZE_READ
+                      : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
