@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:html/parser.dart' show parse;
+import 'package:sizer/sizer.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -189,7 +190,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 text: _searchResults[index].substring(0, 13),
                                 style: GoogleFonts.sarabun(
                                   color: AppColors().primaryColor,
-                                  fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                  fontSize: SizerUtil.deviceType == DeviceType.mobile
+                                  ?AppTextSetting.APP_FONTSIZE_READ
+                                  :AppTextSetting.APP_FONTSIZE_READ_TABLET,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -199,7 +202,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                                 style: GoogleFonts.sarabun(
                                   color: AppColors().primaryColor,
-                                  fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                  fontSize: SizerUtil.deviceType == DeviceType.mobile
+                                  ? AppTextSetting.APP_FONTSIZE_READ
+                                  : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                                 ),
                               ),
                             ],
