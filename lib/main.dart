@@ -7,6 +7,7 @@ import 'package:buddhadham/views/about.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 // void main() {
 //   runApp(BuddhadhamApp());
@@ -22,15 +23,19 @@ class BuddhadhamApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      color: Colors.black,
-      title: 'BuddhadhamApp',
-      theme: ThemeData(
-        primarySwatch: primary_color,
-      ),
-      home: MainScreen(),
-      // home: MainWidget(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        color: Colors.black,
+        title: 'BuddhadhamApp',
+        theme: ThemeData(
+          primarySwatch: primary_color,
+        ),
+        home: MainScreen(),
+        // home: MainWidget(),
+      );
+      }
     );
   }
 }
