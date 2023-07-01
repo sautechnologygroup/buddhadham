@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class ReadScreenForSearch extends StatefulWidget {
   final int initialPage;
@@ -35,7 +36,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
 
   @override
   void dispose() {
-    _controllerTextField.dispose();    
+    _controllerTextField.dispose();
     super.dispose();
   }
 
@@ -66,6 +67,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
 
   int currentPageIndex = 0; // Add a variable to track the current page index
 
+/*
   Widget expandTextFont() {
     return Padding(
       padding: const EdgeInsets.only(top: 80, left: 30, right: 30),
@@ -140,8 +142,100 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
       ),
     );
   }
+*/
 
-  
+  Widget expandTextFont() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 80, left: 30, right: 30),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  'ขนาดตัวอักษร',
+                  style: GoogleFonts.sarabun(fontSize: 20, color: AppColors().readtextColor, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Slider(
+                value: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                onChanged: (double newValue) {
+                  setState(() {
+                    SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ = newValue : AppTextSetting.APP_FONTSIZE_READ_TABLET = newValue;
+                  });
+                },
+                divisions: 90,
+                min: 10.0,
+                max: MediaQuery.of(context).textScaleFactor * 100.0,
+                // label: AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 40, right: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.remove),
+                      onPressed: () {
+                        setState(() {
+                          if (SizerUtil.deviceType == DeviceType.mobile) {
+                            if (AppTextSetting.APP_FONTSIZE_READ == 10) {
+                              AppTextSetting.APP_FONTSIZE_READ = 10;
+                            } else {
+                              AppTextSetting.APP_FONTSIZE_READ -= 1;
+                            }
+                          } else {
+                            if (AppTextSetting.APP_FONTSIZE_READ_TABLET == 10) {
+                              AppTextSetting.APP_FONTSIZE_READ_TABLET = 10;
+                            } else {
+                              AppTextSetting.APP_FONTSIZE_READ_TABLET -= 1;
+                            }
+                          }
+                        });
+                      },
+                    ),
+                    Text(
+                      thaiNumDigit(
+                        SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ.toInt().toString() : AppTextSetting.APP_FONTSIZE_READ_TABLET.toInt().toString(),
+                      ),
+                      style: GoogleFonts.sarabun(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w300,
+                        color: AppColors().readtextColor,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        setState(() {
+                          if (SizerUtil.deviceType == DeviceType.mobile) {
+                            if (AppTextSetting.APP_FONTSIZE_READ == 100) {
+                              AppTextSetting.APP_FONTSIZE_READ = 100;
+                            } else {
+                              AppTextSetting.APP_FONTSIZE_READ += 1;
+                            }
+                          } else {
+                            if (AppTextSetting.APP_FONTSIZE_READ_TABLET == 100) {
+                              AppTextSetting.APP_FONTSIZE_READ_TABLET = 100;
+                            } else {
+                              AppTextSetting.APP_FONTSIZE_READ_TABLET += 1;
+                            }
+                          }
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +333,9 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                                 'หน้า ' + thaiNumDigit((widget.initialPage).toString()),
                                 style: GoogleFonts.sarabun(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: AppTextSetting.APP_FONTSIZE_READ + 2,
+                                  fontSize: SizerUtil.deviceType == DeviceType.mobile 
+                                  ? AppTextSetting.APP_FONTSIZE_READ + 2
+                                  : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                                   color: AppColors().readtextColor,
                                 ),
                               ),
@@ -263,7 +359,9 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                             child: HtmlWidget(
                               snapshot.data![widget.initialPage - 1],
                               textStyle: GoogleFonts.sarabun(
-                                fontSize: AppTextSetting.APP_FONTSIZE_READ,
+                                fontSize: SizerUtil.deviceType == DeviceType.mobile 
+                                ? AppTextSetting.APP_FONTSIZE_READ
+                                : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                                 color: AppColors().readtextColor,
                                 height: 1.7,
                               ),
