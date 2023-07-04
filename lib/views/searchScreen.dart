@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
           print(cleanText);
           searchResults.add('หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.trim()}...'); //thaiNumDigit((index + 1).toString())
         } else {
-          searchResults.add('หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.substring(0, 50).trim()}...');
+          SizerUtil.deviceType == DeviceType.mobile ? searchResults.add('หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.substring(0, 50).trim()}...') : searchResults.add('หน้าที่ ${thaiNumDigit((i + 1).toString())}    \n${cleanText.substring(0, 70).trim()}...');
         }
       }
     }
@@ -178,68 +178,67 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     itemCount: _searchResults.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        // title: Text(
-                        //   _searchResults[index],
-                        //   style: GoogleFonts.sarabun(),
-                        // ),
-                        title: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: _searchResults[index].substring(0, 13),
-                                style: GoogleFonts.sarabun(
-                                  color: AppColors().primaryColor,
-                                  fontSize: SizerUtil.deviceType == DeviceType.mobile
-                                  ?AppTextSetting.APP_FONTSIZE_READ
-                                  :AppTextSetting.APP_FONTSIZE_READ_TABLET,
-                                  fontWeight: FontWeight.bold,
+                      return Padding(
+                        padding: SizerUtil.deviceType == DeviceType.mobile ? EdgeInsets.symmetric(vertical: 3.0) : EdgeInsets.symmetric(vertical: 10.0),
+                        child: ListTile(
+                          // title: Text(
+                          //   _searchResults[index],
+                          //   style: GoogleFonts.sarabun(),
+                          // ),
+                          title: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: _searchResults[index].substring(0, 13),
+                                  style: GoogleFonts.sarabun(
+                                    color: AppColors().primaryColor,
+                                    fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: _searchResults[index].substring(
-                                  13,
+                                TextSpan(
+                                  text: _searchResults[index].substring(
+                                    13,
+                                  ),
+                                  style: GoogleFonts.sarabun(
+                                    color: AppColors().primaryColor,
+                                    fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                                  ),
                                 ),
-                                style: GoogleFonts.sarabun(
-                                  color: AppColors().primaryColor,
-                                  fontSize: SizerUtil.deviceType == DeviceType.mobile
-                                  ? AppTextSetting.APP_FONTSIZE_READ
-                                  : AppTextSetting.APP_FONTSIZE_READ_TABLET,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        onTap: () async {
-                          int pageNumber = index + 1; // Get the correct page number
+                          onTap: () async {
+                            int pageNumber = index + 1; // Get the correct page number
 
-                          List<String> allTexts = await Section.listAllText;
-                          String query = _searchController.text;
-                          int page = 0;
-                          int pageIndex = -1;
+                            List<String> allTexts = await Section.listAllText;
+                            String query = _searchController.text;
+                            int page = 0;
+                            int pageIndex = -1;
 
-                          for (int i = 0; i < allTexts.length; i++) {
-                            if (allTexts[i].contains(query)) {
-                              page++;
-                              if (page == pageNumber) {
-                                pageIndex = i;
-                                break;
+                            for (int i = 0; i < allTexts.length; i++) {
+                              if (allTexts[i].contains(query)) {
+                                page++;
+                                if (page == pageNumber) {
+                                  pageIndex = i;
+                                  break;
+                                }
                               }
                             }
-                          }
 
-                          if (pageIndex != -1) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReadScreenForSearch(
-                                  initialPage: pageIndex + 1,
-                                  searchText: _searchController.text,
+                            if (pageIndex != -1) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReadScreenForSearch(
+                                    initialPage: pageIndex + 1,
+                                    searchText: _searchController.text,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
+                              );
+                            }
+                          },
+                        ),
                       );
                     },
                   ),

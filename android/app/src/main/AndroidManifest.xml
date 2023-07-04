@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="th.ac.sau.buddhadham">
     <application
-        android:label="buddhadham"
+        android:label="พุทธธรรม"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
