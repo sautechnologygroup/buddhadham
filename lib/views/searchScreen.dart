@@ -157,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       child: Divider(),
                     ),
-                    itemCount: 10,
+                    itemCount: SizerUtil.deviceType == DeviceType.mobile ? 10 : 15,
                     itemBuilder: (context, index) {
                       return ListTile(
                           title: Text(
