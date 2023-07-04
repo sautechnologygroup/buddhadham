@@ -78,19 +78,14 @@ class _ReadScreenState extends State<ReadScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: GoogleFonts.sarabun(
-                      fontSize: 20,
-                      color: AppColors().readtextColor,
-                      fontWeight: FontWeight.bold),
+                  style: GoogleFonts.sarabun(fontSize: 20, color: AppColors().readtextColor, fontWeight: FontWeight.bold),
                 ),
               ),
               Slider(
-                value: SizerUtil.deviceType == DeviceType.mobile?AppTextSetting.APP_FONTSIZE_READ: AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                value: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                 onChanged: (double newValue) {
                   setState(() {
-                    SizerUtil.deviceType == DeviceType.mobile
-                    ?AppTextSetting.APP_FONTSIZE_READ = newValue
-                    :AppTextSetting.APP_FONTSIZE_READ_TABLET = newValue ;
+                    SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ = newValue : AppTextSetting.APP_FONTSIZE_READ_TABLET = newValue;
                   });
                 },
                 divisions: 90,
@@ -120,15 +115,12 @@ class _ReadScreenState extends State<ReadScreen> {
                               AppTextSetting.APP_FONTSIZE_READ_TABLET -= 1;
                             }
                           }
-                         
                         });
                       },
                     ),
                     Text(
                       thaiNumDigit(
-                        SizerUtil.deviceType == DeviceType.mobile
-                        ?AppTextSetting.APP_FONTSIZE_READ.toInt().toString()
-                        :AppTextSetting.APP_FONTSIZE_READ_TABLET.toInt().toString(),
+                        SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ.toInt().toString() : AppTextSetting.APP_FONTSIZE_READ_TABLET.toInt().toString(),
                       ),
                       style: GoogleFonts.sarabun(
                         fontSize: 20,
@@ -140,19 +132,19 @@ class _ReadScreenState extends State<ReadScreen> {
                       icon: Icon(Icons.add),
                       onPressed: () {
                         setState(() {
-                          if( SizerUtil.deviceType == DeviceType.mobile){
+                          if (SizerUtil.deviceType == DeviceType.mobile) {
                             if (AppTextSetting.APP_FONTSIZE_READ == 100) {
                               AppTextSetting.APP_FONTSIZE_READ = 100;
                             } else {
                               AppTextSetting.APP_FONTSIZE_READ += 1;
                             }
-                          }else{
+                          } else {
                             if (AppTextSetting.APP_FONTSIZE_READ_TABLET == 100) {
                               AppTextSetting.APP_FONTSIZE_READ_TABLET = 100;
                             } else {
                               AppTextSetting.APP_FONTSIZE_READ_TABLET += 1;
                             }
-                          }                         
+                          }
                         });
                       },
                     ),
@@ -180,7 +172,6 @@ class _ReadScreenState extends State<ReadScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -190,8 +181,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 onChanged: (double newValue) {
                   setState(() {
                     AppTextSetting.INDEX_PAGE = newValue;
-                    _pageController
-                        .jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
+                    _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                   });
                 },
                 divisions: (numAllPage - 1).toInt(),
@@ -218,8 +208,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: TextField(
                           textAlign: TextAlign.center,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                           ],
@@ -233,8 +222,7 @@ class _ReadScreenState extends State<ReadScreen> {
                               int? pageNumber = int.tryParse(value);
                               if (pageNumber != null && pageNumber >= 1) {
                                 AppTextSetting.INDEX_PAGE = pageNumber - 1;
-                                _pageController.jumpToPage(
-                                    AppTextSetting.INDEX_PAGE.toInt());
+                                _pageController.jumpToPage(AppTextSetting.INDEX_PAGE.toInt());
                                 _controllerTextField.clear();
                                 Navigator.pop(context);
                               } else {
@@ -348,12 +336,9 @@ class _ReadScreenState extends State<ReadScreen> {
                       title: Text(
                         'ความนำ', //thaiNumDigit((index + 1).toString())
                         style: GoogleFonts.sarabun(
-                          fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                          fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                           color: AppColors().primaryColor,
-                          fontWeight:
-                              FontWeight.bold, // Default color for other pages
+                          fontWeight: FontWeight.bold, // Default color for other pages
                         ),
                       ),
                       onTap: () {
@@ -379,20 +364,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'ภาค ๑ มัชเฌนธรรมเทศนา', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              10; // Update the current page index
+                          currentPageIndex = 10; // Update the current page index
                         });
                         _pageController.jumpToPage(10);
                       },
@@ -412,20 +393,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑ ขันธ์ ๕ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              23; // Update the current page index
+                          currentPageIndex = 23; // Update the current page index
                         });
                         _pageController.jumpToPage(23);
                       },
@@ -445,20 +422,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒ อายตนะ ๖ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              38; // Update the current page index
+                          currentPageIndex = 38; // Update the current page index
                         });
                         _pageController.jumpToPage(38);
                       },
@@ -478,20 +451,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๓ ไตรลักษณ์', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              73; // Update the current page index
+                          currentPageIndex = 73; // Update the current page index
                         });
                         _pageController.jumpToPage(73);
                       },
@@ -511,20 +480,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๔ ปฏิจจสมุปบาท', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              167; // Update the current page index
+                          currentPageIndex = 167; // Update the current page index
                         });
                         _pageController.jumpToPage(167);
                       },
@@ -544,20 +509,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๕ กรรม', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              250; // Update the current page index
+                          currentPageIndex = 250; // Update the current page index
                         });
                         _pageController.jumpToPage(250);
                       },
@@ -577,20 +538,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๖ วิชชา วิมุตติ วิสุทธิ สันติ นิพพาน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              344; // Update the current page index
+                          currentPageIndex = 344; // Update the current page index
                         });
                         _pageController.jumpToPage(344);
                       },
@@ -610,20 +567,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๗ ประเภทและระดับ แห่งนิพพานและผู้บรรลุนิพพาน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              406; // Update the current page index
+                          currentPageIndex = 406; // Update the current page index
                         });
                         _pageController.jumpToPage(406);
                       },
@@ -643,20 +596,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๘ ข้อควรทราบเพิ่มเติม เพื่อเสริมความเข้าใจ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              448; // Update the current page index
+                          currentPageIndex = 448; // Update the current page index
                         });
                         _pageController.jumpToPage(448);
                       },
@@ -676,20 +625,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๙ หลักการสำคัญ ของการบรรลุนิพพาน ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              464; // Update the current page index
+                          currentPageIndex = 464; // Update the current page index
                         });
                         _pageController.jumpToPage(464);
                       },
@@ -709,20 +654,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๐ บทสรุป เรื่องเกี่ยวกับนิพพาน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              510; // Update the current page index
+                          currentPageIndex = 510; // Update the current page index
                         });
                         _pageController.jumpToPage(510);
                       },
@@ -742,20 +683,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'ภาค ๒ มัชฌิมาปฏิปทา', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              534; // Update the current page index
+                          currentPageIndex = 534; // Update the current page index
                         });
                         _pageController.jumpToPage(534);
                       },
@@ -775,20 +712,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๑ บทนำ ของมัชฌิมาปฏิปทา ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              552; // Update the current page index
+                          currentPageIndex = 552; // Update the current page index
                         });
                         _pageController.jumpToPage(552);
                       },
@@ -808,20 +741,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๒ บุพภาคของการศึกษา ๑: ปรโตโฆสะที่ดี = กัลยาณมิตร  ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              613; // Update the current page index
+                          currentPageIndex = 613; // Update the current page index
                         });
                         _pageController.jumpToPage(613);
                       },
@@ -841,20 +770,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๓ บุพภาคของการศึกษา ๒: โยนิโสมนสิการ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              661; // Update the current page index
+                          currentPageIndex = 661; // Update the current page index
                         });
                         _pageController.jumpToPage(661);
                       },
@@ -874,20 +799,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๔ องค์ประกอบของมัชฌิมาปฏิปทา ๑: หมวดปัญญา', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              745; // Update the current page index
+                          currentPageIndex = 745; // Update the current page index
                         });
                         _pageController.jumpToPage(745);
                       },
@@ -907,20 +828,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '    บทที่ ๑๕ องค์ประกอบของมัชฌิมาปฏิปทา ๒: หมวดศีล', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              769; // Update the current page index
+                          currentPageIndex = 769; // Update the current page index
                         });
                         _pageController.jumpToPage(769);
                       },
@@ -940,20 +857,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '    บทที่ ๑๖ องค์ประกอบของมัชฌิมาปฏิปทา ๓: หมวดสมาธิ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              817; // Update the current page index
+                          currentPageIndex = 817; // Update the current page index
                         });
                         _pageController.jumpToPage(817);
                       },
@@ -973,20 +886,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '    บทที่ ๑๗ บทสรุป: อริยสัจ ๔ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              914; // Update the current page index
+                          currentPageIndex = 914; // Update the current page index
                         });
                         _pageController.jumpToPage(914);
                       },
@@ -1006,20 +915,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'ภาค ๓ อารยธรรมวิถี ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              949; // Update the current page index
+                          currentPageIndex = 949; // Update the current page index
                         });
                         _pageController.jumpToPage(949);
                       },
@@ -1039,20 +944,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๘ บทความประกอบที่ ๑: ชีวิตและคุณธรรมพื้นฐานของอารยชน ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              951; // Update the current page index
+                          currentPageIndex = 951; // Update the current page index
                         });
                         _pageController.jumpToPage(951);
                       },
@@ -1072,20 +973,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๙ บทความประกอบที่ ๒: ศีลกับเจตนารมณ์ทางสังคม ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              984; // Update the current page index
+                          currentPageIndex = 984; // Update the current page index
                         });
                         _pageController.jumpToPage(984);
                       },
@@ -1105,20 +1002,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๐ บทความประกอบที่ ๓: เรื่องเหนือสามัญวิสัย: ปาฏิหาริย์ – เทวดา ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize:SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1011; // Update the current page index
+                          currentPageIndex = 1011; // Update the current page index
                         });
                         _pageController.jumpToPage(1011);
                       },
@@ -1138,20 +1031,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๑ บทความประกอบที่ ๔: ปัญหาเกี่ยวกับแรงจูงใจ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1042; // Update the current page index
+                          currentPageIndex = 1042; // Update the current page index
                         });
                         _pageController.jumpToPage(1042);
                       },
@@ -1171,20 +1060,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๒ บทความประกอบที่ ๕: ความสุข ๑: ฉบับแบบแผน ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1095; // Update the current page index
+                          currentPageIndex = 1095; // Update the current page index
                         });
                         _pageController.jumpToPage(1095);
                       },
@@ -1204,20 +1089,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๓ บทความประกอบที่ ๖: ความสุข ๒: ฉบับประมวลความ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1143; // Update the current page index
+                          currentPageIndex = 1143; // Update the current page index
                         });
                         _pageController.jumpToPage(1143);
                       },
@@ -1237,20 +1118,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บรรณาณุกรม', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1212; // Update the current page index
+                          currentPageIndex = 1212; // Update the current page index
                         });
                         _pageController.jumpToPage(1212);
                       },
@@ -1270,20 +1147,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึกของผู้เขียน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1218; // Update the current page index
+                          currentPageIndex = 1218; // Update the current page index
                         });
                         _pageController.jumpToPage(1218);
                       },
@@ -1303,20 +1176,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึกการจัดทำข้อมูล', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1227; // Update the current page index
+                          currentPageIndex = 1227; // Update the current page index
                         });
                         _pageController.jumpToPage(1227);
                       },
@@ -1336,21 +1205,16 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึกไว้ระลึก', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: 
-                            SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1229; // Update the current page index
+                          currentPageIndex = 1229; // Update the current page index
                         });
                         _pageController.jumpToPage(1229);
                       },
@@ -1370,26 +1234,21 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึก (เรื่องทุนพิมพ์)', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: 
-                            SizerUtil.deviceType == DeviceType.mobile
-                            ? AppTextSetting.APP_FONTSIZE_READ + 2
-                            : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
-                            fontWeight: FontWeight
-                                .bold, // Default color for other pages
+                            fontWeight: FontWeight.bold, // Default color for other pages
                           ),
                         ),
                       ),
                       onTap: () {
                         Navigator.pop(context);
                         setState(() {
-                          currentPageIndex =
-                              1260; // Update the current page index
+                          currentPageIndex = 1260; // Update the current page index
                         });
                         _pageController.jumpToPage(1260);
                       },
                     ),
-                    
+
                     SizedBox(
                       height: MediaQuery.of(context).size.width * 0.1,
                     ),
@@ -1430,7 +1289,6 @@ class _ReadScreenState extends State<ReadScreen> {
           ),
         ),
         centerTitle: true,
-        
         actions: [
           Padding(
             padding: EdgeInsets.only(
@@ -1464,50 +1322,40 @@ class _ReadScreenState extends State<ReadScreen> {
                 });
               },
               itemBuilder: (BuildContext context, int index) {
-                snapshot.data![index] =
-                    snapshot.data![index].replaceAll('<mark>', '');
-                snapshot.data![index] =
-                    snapshot.data![index].replaceAll('</mark>', '');
+                snapshot.data![index] = snapshot.data![index].replaceAll('<mark>', '');
+                snapshot.data![index] = snapshot.data![index].replaceAll('</mark>', '');
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: SingleChildScrollView(
+                    padding:  EdgeInsets.all(1),
+                    child: SingleChildScrollView(                        
                       child: Padding(
-                        padding: const EdgeInsets.only(
+                        padding:  EdgeInsets.only(
                           left: 10,
                           right: 10,
                           bottom: 10,
                           top: 5,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Wrap(
+                          padding: EdgeInsets.only(top: 20),
+                          child: Column(                              
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.025,
+                                  left: MediaQuery.of(context).size.width * 0.025,
+                                  right: MediaQuery.of(context).size.width * 0.025,
                                 ),
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
-                                    'หน้า ' +
-                                        thaiNumDigit((index + 1).toString()),
+                                    'หน้า ' + thaiNumDigit((index + 1).toString()),
                                     // style: TextStyle(
                                     //   fontSize: AppTextSetting.APP_FONTSIZE_READ,
                                     //   color: AppColors().readtextColor,
                                     // ),
                                     style: GoogleFonts.sarabun(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: SizerUtil.deviceType ==
-                                              DeviceType.mobile
-                                          ? AppTextSetting.APP_FONTSIZE_READ + 2
-                                          : AppTextSetting
-                                                  .APP_FONTSIZE_READ_TABLET +
-                                              2,
+                                      fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                                       color: AppColors().readtextColor,
                                     ),
                                   ),
@@ -1517,34 +1365,27 @@ class _ReadScreenState extends State<ReadScreen> {
                                 color: Colors.grey[400],
                                 height: 20,
                                 thickness: 1,
-                                indent:
-                                    MediaQuery.of(context).size.width * 0.025,
-                                endIndent:
-                                    MediaQuery.of(context).size.width * 0.025,
+                                indent: MediaQuery.of(context).size.width * 0.025,
+                                endIndent: MediaQuery.of(context).size.width * 0.025,
                               ),
                               SizedBox(
                                 height: 30,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.025,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.025,
+                                  left: MediaQuery.of(context).size.width * 0.025,
+                                  right: MediaQuery.of(context).size.width * 0.025,
                                 ),
                                 child: HtmlWidget(
                                   snapshot.data![index],
                                   textStyle: GoogleFonts.sarabun(
-                                    fontSize: SizerUtil.deviceType ==
-                                            DeviceType.mobile
-                                        ? AppTextSetting.APP_FONTSIZE_READ
-                                        : AppTextSetting
-                                            .APP_FONTSIZE_READ_TABLET,
+                                    fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                                     color: AppColors().readtextColor,
                                     height: 1.7,
                                   ),
                                 ),
                               ),
+                             
                             ],
                           ),
                         ),

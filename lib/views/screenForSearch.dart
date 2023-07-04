@@ -333,9 +333,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                                 'หน้า ' + thaiNumDigit((widget.initialPage).toString()),
                                 style: GoogleFonts.sarabun(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: SizerUtil.deviceType == DeviceType.mobile 
-                                  ? AppTextSetting.APP_FONTSIZE_READ + 2
-                                  : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                                  fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                                   color: AppColors().readtextColor,
                                 ),
                               ),
@@ -359,9 +357,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                             child: HtmlWidget(
                               snapshot.data![widget.initialPage - 1],
                               textStyle: GoogleFonts.sarabun(
-                                fontSize: SizerUtil.deviceType == DeviceType.mobile 
-                                ? AppTextSetting.APP_FONTSIZE_READ
-                                : AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                                fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                                 color: AppColors().readtextColor,
                                 height: 1.7,
                               ),

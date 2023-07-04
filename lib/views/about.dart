@@ -73,7 +73,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
                 Text(
                   'พุทธธรรม',
-                  style: GoogleFonts.charmonman(
+                  style: GoogleFonts.prompt(
                     textStyle: TextStyle(
                       fontSize: SizerUtil.deviceType == DeviceType.mobile
                       ? AppTextSetting.APP_FONTSIZE_READ + 20
@@ -124,7 +124,6 @@ class _AboutScreenState extends State<AboutScreen> {
                       fontSize: SizerUtil.deviceType == DeviceType.mobile
                       ? AppTextSetting.APP_FONTSIZE_READ + 2
                       : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   textAlign: TextAlign.center,
@@ -133,7 +132,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   height: MediaQuery.of(context).size.width * 0.05,
                 ),
                 Text(
-                  'จดหมายได้รับการอนุญาติในการพัฒนาแอปพลิเคชันพุทธธรรมบนระบบสมาร์ทโฟน\nจากพระเดชพระคุณหลวงพ่อ พระพรหมคุณากรณ์\n(ป. อ. ปยุตฺโต)\n\nได้รับการสนับสนุนการจัดทำโดย\nมหาวิทยาลัยเอเชียอาคเนย์',
+                  'จดหมายได้รับการอนุญาตในการพัฒนาแอปพลิเคชัน\nพุทธธรรมฉบับดิจิตอล\nจากพระเดชพระคุณหลวงพ่อ\nสมเด็จพระพุทธโฆษาจารย์ พระพรหมคุณากรณ์\n(ป. อ. ปยุตฺโต)\n\nสนับสนุนการจัดทำโดย\nมหาวิทยาลัยเอเชียอาคเนย์',
                   style: GoogleFonts.sarabun(
                     textStyle: TextStyle(
                       fontSize: SizerUtil.deviceType == DeviceType.mobile
@@ -151,7 +150,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     _launchInBrowser(Uri.parse('http://www.sau.ac.th'));
                   },
                   child: Text(
-                    'http://www.sau.ac.th',
+                    'www.sau.ac.th',
                     style: GoogleFonts.sarabun(
                       textStyle: TextStyle(
                         fontSize: SizerUtil.deviceType == DeviceType.mobile
@@ -163,7 +162,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   ),
                 ),
                 Text(
-                  'คุณเสริมสิน สมะลาภา\nนายกสภามหาวิทยาลัยเอเชียอาคเนย์\n\nคณะกรรมการทำนุบำรุง\nศาสนามหาวิทยาลัยเอเชียอาคเนย์\n\nคุณฉันทวุฒิ พีชผล\nอธิการบดีมหาวิทยาลัยเอเชียอาคเนย์\n\nคุณปิยพงศ์ เผ่าวณิช \nกรรมการสภามหาวิทยาลัยเอเชียอาคเนย์\n\nคุณเลิศพนธ์ อัจฉรานันท์\nผู้ช่วยอธิการบดีมหาวิทยาลัยเอเชียอาคเนย์\n\nผู้สนับสนุนการจัดทำ\nคณาจารย์  บุคลากร มหาวิทยาลัยเอเชียอาคเนย์\nและผู้ไม่ประสงค์ออกนาม\n\nสามารถดาวน์โหลดหนังสือธรรมะอื่นๆ\nและพุทธธรรมฉบับพีดีเอฟ (PDF) ได้ที่',
+                  '\nคุณเสริมสิน สมะลาภา\nนายกสภามหาวิทยาลัยเอเชียอาคเนย์\n\nคุณฉันทวุฒิ พีชผล\nอธิการบดีมหาวิทยาลัยเอเชียอาคเนย์\n\nคุณปิยพงศ์ เผ่าวณิช \nกรรมการสภามหาวิทยาลัยเอเชียอาคเนย์\n\nคุณเลิศพนธ์ อัจฉรานันท์\nผู้ช่วยอธิการบดีมหาวิทยาลัยเอเชียอาคเนย์\n\nคณะกรรมการทำนุบำรุงศาสนา\nมหาวิทยาลัยเอเชียอาคเนย์\n\nทีมงานพัฒนา\nคณาจารย์ และนักศึกษา\nสาขาวิชาเทคโนโลยีดิจิทัลและนวัตกรรม\nมหาวิทยาลัยเอเชียอาคเนย์\n\nสามารถดาวน์โหลดหนังสือธรรมะอื่นๆ\nและพุทธธรรมฉบับดิจิตอลได้ที่',
                   style: GoogleFonts.sarabun(
                     textStyle: TextStyle(
                       fontSize: SizerUtil.deviceType == DeviceType.mobile
@@ -181,7 +180,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     _launchInBrowser(Uri.parse('http://dhamma.sau.ac.th'));
                   },
                   child: Text(
-                    'http://dhamma.sau.ac.th',
+                    'dhamma.sau.ac.th',
                     style: GoogleFonts.sarabun(
                       textStyle: TextStyle(
                         fontSize: SizerUtil.deviceType == DeviceType.mobile
