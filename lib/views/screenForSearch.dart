@@ -1,7 +1,7 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/utils/appcolors.dart';
-
+import 'package:buddhadham/views/screenImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -367,6 +367,17 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                                 color: AppColors().readtextColor,
                                 height: 1.7,
                               ),
+                              onTapImage: (p0) {
+                                    //open ScreenImage for show p0
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ScreenImage(
+                                          image: p0.alt,
+                                        ),
+                                      ),
+                                    );
+                                  },
                             ),
                           ),
                         ],
