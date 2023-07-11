@@ -1,12 +1,14 @@
 import 'package:buddhadham/models/appTextSetting.dart';
 import 'package:buddhadham/models/section.dart';
 import 'package:buddhadham/utils/appcolors.dart';
+import 'package:buddhadham/views/screenImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 class ReadScreen extends StatefulWidget {
   final int initialPage;
@@ -27,6 +29,7 @@ class _ReadScreenState extends State<ReadScreen> {
 
   @override
   void initState() {
+    AppTextSetting.INDEX_PAGE = 1;
     getDataTextListFuture = getData()!;
     _pageController = PageController(initialPage: widget.initialPage - 1);
     super.initState();
@@ -67,7 +70,7 @@ class _ReadScreenState extends State<ReadScreen> {
 
   Widget expandTextFont() {
     return Padding(
-      padding: const EdgeInsets.only(top: 80, left: 30, right: 30),
+      padding: const EdgeInsets.only(top: 40, left: 30, right: 30),
       child: Align(
         alignment: Alignment.topCenter,
         child: Card(
@@ -78,7 +81,11 @@ class _ReadScreenState extends State<ReadScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: GoogleFonts.sarabun(fontSize: 20, color: AppColors().readtextColor, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.sarabun(
+                    fontSize: 18,
+                    color: AppColors().readtextColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Slider(
@@ -90,7 +97,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 },
                 divisions: 90,
                 min: 10.0,
-                max: MediaQuery.of(context).textScaleFactor * 100.0,
+                max: MediaQuery.of(context).textScaleFactor * 40.0,
                 // label: AppTextSetting.APP_FONTSIZE_READ.toInt().toString(),
               ),
               Padding(
@@ -123,7 +130,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ.toInt().toString() : AppTextSetting.APP_FONTSIZE_READ_TABLET.toInt().toString(),
                       ),
                       style: GoogleFonts.sarabun(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w300,
                         color: AppColors().readtextColor,
                       ),
@@ -152,7 +159,7 @@ class _ReadScreenState extends State<ReadScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: const Divider(
                   color: Colors.black,
                   height: 20,
@@ -168,7 +175,7 @@ class _ReadScreenState extends State<ReadScreen> {
                     Text(
                       'หน้าที่ ${thaiNumDigit(AppTextSetting.INDEX_PAGE.toInt().toString())}',
                       style: GoogleFonts.sarabun(
-                        fontSize: 19,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -272,10 +279,13 @@ class _ReadScreenState extends State<ReadScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(
-                        'assets/images/logo.png',
-                        width: 80.0,
-                        height: 80.0,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 60.0,
+                          height: 60.0,
+                        ),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -336,7 +346,7 @@ class _ReadScreenState extends State<ReadScreen> {
                       title: Text(
                         'ความนำ', //thaiNumDigit((index + 1).toString())
                         style: GoogleFonts.sarabun(
-                          fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                          fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                           color: AppColors().primaryColor,
                           fontWeight: FontWeight.bold, // Default color for other pages
                         ),
@@ -364,7 +374,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'ภาค ๑ มัชเฌนธรรมเทศนา', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -393,7 +403,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑ ขันธ์ ๕ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -422,7 +432,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒ อายตนะ ๖ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -451,7 +461,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๓ ไตรลักษณ์', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -480,7 +490,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๔ ปฏิจจสมุปบาท', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -509,7 +519,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๕ กรรม', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -538,7 +548,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๖ วิชชา วิมุตติ วิสุทธิ สันติ นิพพาน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -567,7 +577,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๗ ประเภทและระดับ แห่งนิพพานและผู้บรรลุนิพพาน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -596,7 +606,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๘ ข้อควรทราบเพิ่มเติม เพื่อเสริมความเข้าใจ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -625,7 +635,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๙ หลักการสำคัญ ของการบรรลุนิพพาน ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -654,7 +664,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๐ บทสรุป เรื่องเกี่ยวกับนิพพาน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -683,7 +693,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'ภาค ๒ มัชฌิมาปฏิปทา', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -712,7 +722,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๑ บทนำ ของมัชฌิมาปฏิปทา ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -741,7 +751,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๒ บุพภาคของการศึกษา ๑: ปรโตโฆสะที่ดี = กัลยาณมิตร  ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -770,7 +780,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๓ บุพภาคของการศึกษา ๒: โยนิโสมนสิการ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -799,7 +809,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๔ องค์ประกอบของมัชฌิมาปฏิปทา ๑: หมวดปัญญา', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -828,7 +838,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '    บทที่ ๑๕ องค์ประกอบของมัชฌิมาปฏิปทา ๒: หมวดศีล', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -857,7 +867,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '    บทที่ ๑๖ องค์ประกอบของมัชฌิมาปฏิปทา ๓: หมวดสมาธิ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -886,7 +896,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '    บทที่ ๑๗ บทสรุป: อริยสัจ ๔ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -915,7 +925,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'ภาค ๓ อารยธรรมวิถี ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -944,7 +954,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๘ บทความประกอบที่ ๑: ชีวิตและคุณธรรมพื้นฐานของอารยชน ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -973,7 +983,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๑๙ บทความประกอบที่ ๒: ศีลกับเจตนารมณ์ทางสังคม ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1002,7 +1012,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๐ บทความประกอบที่ ๓: เรื่องเหนือสามัญวิสัย: ปาฏิหาริย์ – เทวดา ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1031,7 +1041,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๑ บทความประกอบที่ ๔: ปัญหาเกี่ยวกับแรงจูงใจ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1060,7 +1070,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๒ บทความประกอบที่ ๕: ความสุข ๑: ฉบับแบบแผน ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1089,7 +1099,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           '     บทที่ ๒๓ บทความประกอบที่ ๖: ความสุข ๒: ฉบับประมวลความ ', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1118,7 +1128,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บรรณาณุกรม', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1147,7 +1157,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึกของผู้เขียน', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1176,7 +1186,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึกการจัดทำข้อมูล', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1205,7 +1215,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึกไว้ระลึก', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1234,7 +1244,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         child: Text(
                           'บันทึก (เรื่องทุนพิมพ์)', //thaiNumDigit((index + 1).toString())
                           style: GoogleFonts.sarabun(
-                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                            fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 1 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
                             color: AppColors().primaryColor,
                             fontWeight: FontWeight.bold, // Default color for other pages
                           ),
@@ -1325,12 +1335,13 @@ class _ReadScreenState extends State<ReadScreen> {
                 snapshot.data![index] = snapshot.data![index].replaceAll('<mark>', '');
                 snapshot.data![index] = snapshot.data![index].replaceAll('</mark>', '');
                 return Container(
+                  height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding:  EdgeInsets.all(1),
-                    child: SingleChildScrollView(                        
+                    padding: EdgeInsets.all(1),
+                    child: SingleChildScrollView(
                       child: Padding(
-                        padding:  EdgeInsets.only(
+                        padding: EdgeInsets.only(
                           left: 10,
                           right: 10,
                           bottom: 10,
@@ -1338,7 +1349,7 @@ class _ReadScreenState extends State<ReadScreen> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(top: 20),
-                          child: Column(                              
+                          child: Column(
                             children: [
                               Padding(
                                 padding: EdgeInsets.only(
@@ -1383,9 +1394,19 @@ class _ReadScreenState extends State<ReadScreen> {
                                     color: AppColors().readtextColor,
                                     height: 1.7,
                                   ),
+                                  onTapImage: (p0) {
+                                    //open ScreenImage for show p0
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ScreenImage(
+                                          image: p0.alt,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
-                             
                             ],
                           ),
                         ),

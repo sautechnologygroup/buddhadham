@@ -7,6 +7,7 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 class ReadScreenForSearch extends StatefulWidget {
   final int initialPage;
@@ -146,7 +147,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
 
   Widget expandTextFont() {
     return Padding(
-      padding: const EdgeInsets.only(top: 80, left: 30, right: 30),
+      padding: const EdgeInsets.only(top: 40, left: 30, right: 30),
       child: Align(
         alignment: Alignment.topCenter,
         child: Card(
@@ -157,7 +158,11 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
                   'ขนาดตัวอักษร',
-                  style: GoogleFonts.sarabun(fontSize: 20, color: AppColors().readtextColor, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.sarabun(
+                    fontSize: 18,
+                    color: AppColors().readtextColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Slider(
@@ -202,7 +207,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                         SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ.toInt().toString() : AppTextSetting.APP_FONTSIZE_READ_TABLET.toInt().toString(),
                       ),
                       style: GoogleFonts.sarabun(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w300,
                         color: AppColors().readtextColor,
                       ),
@@ -307,6 +312,7 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
             snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll('</mark>', '');
             snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll(widget.searchText, '<mark>${widget.searchText}</mark>');
             return Container(
+              height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: const EdgeInsets.all(1),

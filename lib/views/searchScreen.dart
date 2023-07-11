@@ -56,6 +56,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
+    AppTextSetting.APP_FONTSIZE_READ = 15;
+    AppTextSetting.APP_FONTSIZE_READ_TABLET = 23;
     super.initState();
   }
 
