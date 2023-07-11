@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Image.asset(
-          'assets/images/cover.jpg',
+          'assets/images/cover.png',
           fit: BoxFit.cover,
         ),
       ),
