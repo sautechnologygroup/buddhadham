@@ -12,7 +12,9 @@ import 'package:zoom_widget/zoom_widget.dart';
 class ReadScreenForSearch extends StatefulWidget {
   final int initialPage;
   final String searchText;
-  const ReadScreenForSearch({Key? key, required this.initialPage, required this.searchText}) : super(key: key);
+  const ReadScreenForSearch(
+      {Key? key, required this.initialPage, required this.searchText})
+      : super(key: key);
 
   @override
   State<ReadScreenForSearch> createState() => _ReadScreenForSearchState();
@@ -166,10 +168,14 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                 ),
               ),
               Slider(
-                value: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                value: SizerUtil.deviceType == DeviceType.mobile
+                    ? AppTextSetting.APP_FONTSIZE_READ
+                    : AppTextSetting.APP_FONTSIZE_READ_TABLET,
                 onChanged: (double newValue) {
                   setState(() {
-                    SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ = newValue : AppTextSetting.APP_FONTSIZE_READ_TABLET = newValue;
+                    SizerUtil.deviceType == DeviceType.mobile
+                        ? AppTextSetting.APP_FONTSIZE_READ = newValue
+                        : AppTextSetting.APP_FONTSIZE_READ_TABLET = newValue;
                   });
                 },
                 divisions: 90,
@@ -204,7 +210,13 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                     ),
                     Text(
                       thaiNumDigit(
-                        SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ.toInt().toString() : AppTextSetting.APP_FONTSIZE_READ_TABLET.toInt().toString(),
+                        SizerUtil.deviceType == DeviceType.mobile
+                            ? AppTextSetting.APP_FONTSIZE_READ
+                                .toInt()
+                                .toString()
+                            : AppTextSetting.APP_FONTSIZE_READ_TABLET
+                                .toInt()
+                                .toString(),
                       ),
                       style: GoogleFonts.sarabun(
                         fontSize: 18,
@@ -223,7 +235,8 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                               AppTextSetting.APP_FONTSIZE_READ += 1;
                             }
                           } else {
-                            if (AppTextSetting.APP_FONTSIZE_READ_TABLET == 100) {
+                            if (AppTextSetting.APP_FONTSIZE_READ_TABLET ==
+                                100) {
                               AppTextSetting.APP_FONTSIZE_READ_TABLET = 100;
                             } else {
                               AppTextSetting.APP_FONTSIZE_READ_TABLET += 1;
@@ -308,9 +321,14 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll('<mark>', '');
-            snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll('</mark>', '');
-            snapshot.data![widget.initialPage - 1] = snapshot.data![widget.initialPage - 1].replaceAll(widget.searchText, '<mark>${widget.searchText}</mark>');
+            snapshot.data![widget.initialPage - 1] =
+                snapshot.data![widget.initialPage - 1].replaceAll('<mark>', '');
+            snapshot.data![widget.initialPage - 1] = snapshot
+                .data![widget.initialPage - 1]
+                .replaceAll('</mark>', '');
+            snapshot.data![widget.initialPage - 1] =
+                snapshot.data![widget.initialPage - 1].replaceAll(
+                    widget.searchText, '<mark>${widget.searchText}</mark>');
             return Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -336,10 +354,17 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                             child: Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                'หน้า ' + thaiNumDigit((widget.initialPage).toString()),
+                                'หน้า ' +
+                                    thaiNumDigit(
+                                        (widget.initialPage).toString()),
                                 style: GoogleFonts.sarabun(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ + 2 : AppTextSetting.APP_FONTSIZE_READ_TABLET + 2,
+                                  fontSize:
+                                      SizerUtil.deviceType == DeviceType.mobile
+                                          ? AppTextSetting.APP_FONTSIZE_READ + 2
+                                          : AppTextSetting
+                                                  .APP_FONTSIZE_READ_TABLET +
+                                              2,
                                   color: AppColors().readtextColor,
                                 ),
                               ),
@@ -350,7 +375,8 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                             height: 20,
                             thickness: 1,
                             indent: MediaQuery.of(context).size.width * 0.025,
-                            endIndent: MediaQuery.of(context).size.width * 0.025,
+                            endIndent:
+                                MediaQuery.of(context).size.width * 0.025,
                           ),
                           SizedBox(
                             height: 30,
@@ -360,24 +386,29 @@ class _ReadScreenForSearchState extends State<ReadScreenForSearch> {
                               left: MediaQuery.of(context).size.width * 0.025,
                               right: MediaQuery.of(context).size.width * 0.025,
                             ),
-                            child: HtmlWidget(
-                              snapshot.data![widget.initialPage - 1],
-                              textStyle: GoogleFonts.sarabun(
-                                fontSize: SizerUtil.deviceType == DeviceType.mobile ? AppTextSetting.APP_FONTSIZE_READ : AppTextSetting.APP_FONTSIZE_READ_TABLET,
-                                color: AppColors().readtextColor,
-                                height: 1.7,
-                              ),
-                              onTapImage: (p0) {
-                                    //open ScreenImage for show p0
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ScreenImage(
-                                          image: p0.alt,
-                                        ),
+                            child: SelectionArea(
+                              child: HtmlWidget(
+                                snapshot.data![widget.initialPage - 1],
+                                textStyle: GoogleFonts.sarabun(
+                                  fontSize: SizerUtil.deviceType ==
+                                          DeviceType.mobile
+                                      ? AppTextSetting.APP_FONTSIZE_READ
+                                      : AppTextSetting.APP_FONTSIZE_READ_TABLET,
+                                  color: AppColors().readtextColor,
+                                  height: 1.7,
+                                ),
+                                onTapImage: (p0) {
+                                  //open ScreenImage for show p0
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ScreenImage(
+                                        image: p0.alt,
                                       ),
-                                    );
-                                  },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],

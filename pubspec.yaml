@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.4.0
   google_fonts: ^5.1.0
-  flutter_widget_from_html_core: ^0.10.1
+  flutter_widget_from_html_core: ^0.10.3
   html: ^0.15.4
   flutter_native_splash: ^2.3.1
   url_launcher: ^6.1.11
